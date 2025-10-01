@@ -14,7 +14,6 @@ public class ReportManager {
 
     public void generateCityReport() {
         CityReport report = new CityReport(con);
-
         System.out.println("\nGenerating Top 10 Cities by Continent Report");
         ArrayList<City> top10Cities = report.getTop10CitiesByContinentPopulation();
         display.printCityReport(top10Cities);
