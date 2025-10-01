@@ -75,4 +75,13 @@ public class DbConnection {
             }
         }
     }
+
+    /**
+     * Returns the active database connection.
+     * @return Connection object or null if not connected
+     */
+    public Connection getConnection() {
+        return con;
+    }
+
 }
