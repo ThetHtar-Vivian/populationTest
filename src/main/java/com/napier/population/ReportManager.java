@@ -19,7 +19,6 @@ public class ReportManager {
         System.out.println("\nGenerate All Cities by Continent Population Report");
         ArrayList<City> cities = report.getCitiesByContinentPopulationDesc();
         display.printCityReport(cities);
-
     }
 
     public void generateCountryReport() {
