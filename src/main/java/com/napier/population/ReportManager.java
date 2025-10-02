@@ -15,15 +15,15 @@ public class ReportManager {
     public void generateCityReport() {
         CityReport report = new CityReport(con);
 
-        //3. All the cities in a continent organized by largest population to smallest.
-        System.out.println("\nGenerate All Cities by Continent Population Report");
-        ArrayList<City> cities = report.getCitiesByContinentPopulationDesc();
-        display.printCityReport(cities);
-
     }
 
     public void generateCountryReport() {
         CountryReport report = new CountryReport(con);
+
+        //4. The top 50 populated countries in the world.
+        System.out.println("\nGenerate Top 50 Most Populated Countries Report");
+        ArrayList<Country> top50Countries = report.getTop50CountriesByPopulation();
+        display.printCountryReport(top50Countries);
 
     }
 
