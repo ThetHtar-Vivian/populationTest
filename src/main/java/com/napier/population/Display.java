@@ -28,10 +28,10 @@ public class Display {
         for (Country country : countries) {
             if (country == null) continue;
 
-            System.out.printf("%-10s %-55s %-10d %-25s %-30s %-15s %-12d%n",
+            System.out.printf("%-10s %-55s %-20s %-25s %-30s %-15s %-12d%n",
                     country.getCode(),
                     country.getName(),
-                    country.getCapital(),
+                    country.getCapitalName(), // city name
                     country.getDistrict(),
                     country.getRegion(),
                     country.getContinent(),

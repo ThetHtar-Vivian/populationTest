@@ -19,6 +19,7 @@ public class Country {
 
     // extra field for report
     private String district;
+    private String capitalName;
 
     // Getters and setters
     public String getCode() { return code; }
@@ -65,6 +66,9 @@ public class Country {
 
     public int getCapital() { return capital; }
     public void setCapital(int capital) { this.capital = capital; }
+
+    public String getCapitalName() { return capitalName; }
+    public void setCapitalName(String capitalName) { this.capitalName = capitalName; }
 
     public String getCode2() { return code2; }
     public void setCode2(String code2) { this.code2 = code2; }
