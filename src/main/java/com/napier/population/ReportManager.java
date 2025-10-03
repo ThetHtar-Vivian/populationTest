@@ -61,6 +61,17 @@ public class ReportManager {
 
         // Print the result using Display class
         display.printCityReport(top50Cities);
+
+        // 3. All the cities in a continent organized by largest population to smallest.
+        System.out.println("\nGenerate All Cities by Continent Population Report");
+
+        // Call the report method to retrieve a list of all cities,
+        // ordered by continent and sorted by population in descending order within each continent
+        ArrayList<City> cities = report.getCitiesByContinentPopulationDesc();
+
+        // Display the retrieved list in a formatted city report
+        display.printCityReport(cities);
+
     }
 
     /**
