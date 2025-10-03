@@ -65,7 +65,10 @@ public class ReportManager {
      */
     public void generateCountryReport() {
         CountryReport report = new CountryReport(con);
-
+        // Generate Top 10 Populated Countries for each continent
+        System.out.println("\nGenerating Top 10 Populated Countries per Continent Report");
+        ArrayList<Country> top10CountriesPerContinent = report.getTop10CountriesByContinentPopulation();
+        display.printCountryReport(top10CountriesPerContinent);
 
     }
 
