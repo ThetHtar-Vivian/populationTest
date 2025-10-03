@@ -65,6 +65,7 @@ public class ReportManager {
      */
     public void generateCountryReport() {
         CountryReport report = new CountryReport(con);
+
         System.out.println("\nGenerating All Countries in the World by Population Report");
         ArrayList<Country> countriesByPopulation = report.getAllCountriesByPopulationDesc();
         display.printCountryReport(countriesByPopulation);
