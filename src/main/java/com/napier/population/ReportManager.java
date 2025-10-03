@@ -53,6 +53,12 @@ public class ReportManager {
 
         // Print the result using Display class
         display.printCityReport(top10Cities);
+
+        System.out.println("\n Generate all cities by population");
+        // Fetch all cites by population
+        ArrayList<City> allCities = report.getAllCitiesByPopulation();
+        // Print the result using the display class
+        display.printCityReport(allCities);
     }
 
     /**
