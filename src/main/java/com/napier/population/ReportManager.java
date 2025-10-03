@@ -22,7 +22,10 @@ public class ReportManager {
 
     public void generateCountryReport() {
         CountryReport report = new CountryReport(con);
-
+        // Add your top 10 Asia report here
+        System.out.println("\nGenerating Top 10 Populated Countries in Asia");
+        ArrayList<Country> top10Countries = report.getTop10CountriesByContinentPopulation("Asia");
+        display.printCountryReport(top10Countries);
     }
 
     public void generateCapitalCityReport() {
