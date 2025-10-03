@@ -65,10 +65,9 @@ public class ReportManager {
      */
     public void generateCountryReport() {
         CountryReport report = new CountryReport(con);
-        // Add your top 10 Asia report here
-        System.out.println("\nGenerating Top 10 Populated Countries in Asia");
-        ArrayList<Country> top10Countries = report.getTop10CountriesByContinentPopulation("Asia");
-        display.printCountryReport(top10Countries);
+        System.out.println("\nGenerating All Countries in the World by Population Report");
+        ArrayList<Country> countriesByPopulation = report.getAllCountriesByPopulationDesc();
+        display.printCountryReport(countriesByPopulation);
     }
 
     /**
