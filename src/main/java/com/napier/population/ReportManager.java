@@ -84,6 +84,15 @@ public class ReportManager {
      */
     public void generateCountryReport() {
         CountryReport report = new CountryReport(con);
+
+        // 4. The top 50 populated countries in the world.
+        System.out.println("\nGenerate Top 50 Most Populated Countries Report");
+
+        // Call the report method to retrieve a list of the top 50 most populated countries
+        ArrayList<Country> top50Countries = report.getTop50CountriesByPopulation();
+
+        // Display the retrieved list in a formatted country report
+        display.printCountryReport(top50Countries);
     }
 
     /**
