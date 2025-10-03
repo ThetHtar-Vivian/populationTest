@@ -64,7 +64,16 @@ public class ReportManager {
      * 3. Pass to Display for formatted output
      */
     public void generateCountryReport() {
+        // Create a CountryReport object using the active database connection
         CountryReport report = new CountryReport(con);
+
+        System.out.println("\nGenerate All Countries by Continent Population Report");
+
+        // Fetch the list of countries sorted by continent and population
+        ArrayList<Country> countries = report.getCountriesByContinentPopulationDesc();
+
+        // Print the result using Display class
+        display.printCountryReport(countries);
     }
 
     /**
