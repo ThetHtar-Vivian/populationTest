@@ -101,6 +101,11 @@ public class ReportManager {
 
         // Display the retrieved list in a formatted country report
         display.printCountryReport(top50Countries);
+
+        // Generate Top 10 Populated Countries for each continent
+        System.out.println("\nGenerating Top 10 Populated Countries per Continent Report");
+        ArrayList<Country> top10CountriesPerContinent = report.getTop10CountriesByContinentPopulation();
+        display.printCountryReport(top10CountriesPerContinent);
     }
 
     /**
