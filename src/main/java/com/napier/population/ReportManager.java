@@ -42,7 +42,6 @@ public class ReportManager {
      * 2. Fetch top 10 cities by continent
      * 3. Pass data to Display for formatted output
      */
-
     public void generateCityReport() {
         // Create CityReport instance to query database
         CityReport report = new CityReport(con);
