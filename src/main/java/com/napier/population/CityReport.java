@@ -127,7 +127,7 @@ public class CityReport {
     }
 
     /**
-     * 3. Retrieves a list of all cities in the world, organized by continent and
+     * 8. Retrieves a list of all cities in the world, organized by continent and
      * sorted by city population in descending order within each continent.
      * The method joins the 'city' and 'country' tables to include relevant
      * information such as country name, district, region, and continent.
