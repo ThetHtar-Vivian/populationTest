@@ -72,6 +72,14 @@ public class ReportManager {
         // Display the retrieved list in a formatted city report
         display.printCityReport(cities);
 
+        System.out.println("\n Generate all cities by population");
+
+        // Fetch all cites by population
+        ArrayList<City> allCities = report.getAllCitiesByPopulation();
+
+        // Print the result using the display class
+        display.printCityReport(allCities);
+
     }
 
     /**
