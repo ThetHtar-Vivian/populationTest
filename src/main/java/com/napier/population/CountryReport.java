@@ -113,5 +113,37 @@ public class CountryReport {
         return countries;
     }
 
+    public ArrayList<Country> getAllCountriesByPopulationDesc() {
+        ArrayList<Country> countries = new ArrayList<>();
+        try {
+            Statement stmt = con.createStatement();
+            String sql =
+                    "SELECT co.Code, co.Name AS CountryName, " +
+                            "       c.Name AS CapitalName, " +
+                            "       c.District, " +
+                            "       co.Region, co.Continent, co.Population " +
+                            "FROM country co " +
+                            "LEFT JOIN city c ON co.Capital = c.ID " +
+                            "ORDER BY co.Population DESC;";
+
+            ResultSet rset = stmt.executeQuery(sql);
+
+            while (rset.next()) {
+                Country country = new Country();
+                country.setCode(rset.getString("Code"));
+                country.setName(rset.getString("CountryName"));
+                country.setCapitalName(rset.getString("CapitalName"));
+                country.setDistrict(rset.getString("District"));  // district from capital city
+                country.setRegion(rset.getString("Region"));
+                country.setContinent(rset.getString("Continent"));
+                country.setPopulation(rset.getInt("Population"));
+                countries.add(country);
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to get countries by population: " + e.getMessage());
+        }
+        return countries;
+    }
+
 
 }
