@@ -53,6 +53,33 @@ public class ReportManager {
 
         // Print the result using Display class
         display.printCityReport(top10Cities);
+
+        System.out.println("\nGenerating Top 50 Cities by Population Report");
+
+        // Fetch top 50 cities by population
+        ArrayList<City> top50Cities = report.getTop50CitiesByPopulation();
+
+        // Print the result using Display class
+        display.printCityReport(top50Cities);
+
+        // 3. All the cities in a continent organized by largest population to smallest.
+        System.out.println("\nGenerate All Cities by Continent Population Report");
+
+        // Call the report method to retrieve a list of all cities,
+        // ordered by continent and sorted by population in descending order within each continent
+        ArrayList<City> cities = report.getCitiesByContinentPopulationDesc();
+
+        // Display the retrieved list in a formatted city report
+        display.printCityReport(cities);
+
+        System.out.println("\n Generate all cities by population");
+
+        // Fetch all cites by population
+        ArrayList<City> allCities = report.getAllCitiesByPopulation();
+
+        // Print the result using the display class
+        display.printCityReport(allCities);
+
     }
 
     /**
@@ -65,11 +92,15 @@ public class ReportManager {
      */
     public void generateCountryReport() {
         CountryReport report = new CountryReport(con);
-        // Generate Top 10 Populated Countries for each continent
-        System.out.println("\nGenerating Top 10 Populated Countries per Continent Report");
-        ArrayList<Country> top10CountriesPerContinent = report.getTop10CountriesByContinentPopulation();
-        display.printCountryReport(top10CountriesPerContinent);
 
+        // 4. The top 50 populated countries in the world.
+        System.out.println("\nGenerate Top 50 Most Populated Countries Report");
+
+        // Call the report method to retrieve a list of the top 50 most populated countries
+        ArrayList<Country> top50Countries = report.getTop50CountriesByPopulation();
+
+        // Display the retrieved list in a formatted country report
+        display.printCountryReport(top50Countries);
     }
 
     /**
