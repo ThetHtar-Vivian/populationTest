@@ -6,48 +6,17 @@ package com.napier.population;
  * extra fields used for reporting (e.g., country, continent, region).
  */
 public class City {
-    /**
-     * City name
-     */
+
     private String name;
-
-    /**
-     * Country code (FK -> Country.Code)
-     */
     private String country_code;
-
-    /**
-     * District where the city is located
-     */
     private String district;
-
-    /**
-     * City population
-     */
     private int population;
-
-    // ----------------------------------------------------------------
-    // Extra fields for reporting (not part of the raw city table)
-    // ----------------------------------------------------------------
-
-    /**
-     * Country name (for report purposes, joined from Country table)
-     */
     private String country_name;
-
-    /**
-     * Continent name (for extended reports)
-     */
+    //For extended reports
     private String continent;
-
-    /**
-     * Region within the continent (for extended reports)
-     */
     private String region;
 
-    // ----------------------------------------------------------------
     // Getters and Setters
-    // ----------------------------------------------------------------
 
     /**
      * @return City name
