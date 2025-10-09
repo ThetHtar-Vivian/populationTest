@@ -41,8 +41,7 @@ public class Display {
 
     /**
      * Prints a city report in a formatted table.
-     * Displays: city name, country, district, region, continent, and population.
-     *
+     * Displays: city name, country, district, region, continent, and population
      * @param cities List of cities to display
      */
     public void printCityReport(ArrayList<City> cities) {
