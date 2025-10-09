@@ -46,11 +46,7 @@ public class ReportManager {
         CityReport report = new CityReport(con);
 
         System.out.println("\n Generate all cities by population");
-
-        // Fetch all cites by population
         ArrayList<City> allCities = report.getAllCitiesByPopulation();
-
-        // Print the result using the display class
         display.printCityReport(allCities);
 
         // 8. All the cities in a continent organized by largest population to smallest.
@@ -73,6 +69,11 @@ public class ReportManager {
         ArrayList<City> top10Cities = report.getTop10CitiesByContinentPopulation();
         // Print the result using Display class
         display.printCityReport(top10Cities);
+
+        // Top 5 cities by region
+        System.out.println("\nGenerating Top 5 Most Populated Cities per Region Report");
+        ArrayList<City> top5CitiesPerRegion = report.getTop5CitiesByRegionPopulation();
+        display.printCityReport(top5CitiesPerRegion);
     }
 
     /**

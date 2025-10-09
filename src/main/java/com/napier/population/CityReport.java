@@ -220,4 +220,55 @@ public class CityReport {
 
         return cities; // Return list of top cities
     }
+
+    /**
+     * Retrieves the top 5 most populated cities in each region.
+     * Skips rows with NULL or empty region/city values.
+     *
+     * @return ArrayList of City objects representing top 5 cities per region.
+     */
+    public ArrayList<City> getTop5CitiesByRegionPopulation() {
+        ArrayList<City> cities = new ArrayList<>();
+
+        try {
+            Statement stmt = con.createStatement();
+
+            String sql =
+                    "SELECT CityName, CountryName, District, Region, Continent, Population " +
+                            "FROM ( " +
+                            "   SELECT c.Name AS CityName, " +
+                            "          co.Name AS CountryName, " +
+                            "          c.District, " +
+                            "          co.Region, " +
+                            "          co.Continent, " +
+                            "          c.Population, " +
+                            "          ROW_NUMBER() OVER (PARTITION BY co.Region ORDER BY c.Population DESC) AS rn " +
+                            "   FROM city c " +
+                            "   JOIN country co ON c.CountryCode = co.Code " +
+                            "   WHERE c.Name IS NOT NULL " +
+                            "     AND co.Region IS NOT NULL " +
+                            "     AND co.Region <> '' " +
+                            ") ranked " +
+                            "WHERE rn <= 5 " +
+                            "ORDER BY Region, Population DESC;";
+
+            ResultSet rset = stmt.executeQuery(sql);
+
+            while (rset.next()) {
+                City city = new City();
+                city.setName(rset.getString("CityName"));
+                city.setCountry_name(rset.getString("CountryName"));
+                city.setDistrict(rset.getString("District"));
+                city.setRegion(rset.getString("Region"));
+                city.setContinent(rset.getString("Continent"));
+                city.setPopulation(rset.getInt("Population"));
+                cities.add(city);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Failed to get top 5 cities by region: " + e.getMessage());
+        }
+
+        return cities;
+    }
 }
