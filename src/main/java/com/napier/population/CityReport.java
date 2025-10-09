@@ -220,4 +220,49 @@ public class CityReport {
 
         return cities; // Return list of top cities
     }
+
+    public ArrayList<City> getCitiesByDistrictPopulationDesc() {
+        // Create a list to store the retrieved City objects
+        ArrayList<City> cities = new ArrayList<>();
+
+        try {
+            // Create a SQL statement object to execute the query
+            Statement stmt = con.createStatement();
+
+            // SQL query:
+            // - Joins 'city' and 'country' tables using the country code
+            // - Selects city name, country name, district, region, continent, and population
+            // - Orders the result first by district (alphabetically),
+            //   then by city population in descending order within each district
+            String sql = "SELECT ci.Name AS CityName, co.Name AS CountryName, ci.District, " +
+                    "co.Region, co.Continent, ci.Population " +
+                    "FROM city ci " +
+                    "JOIN country co ON ci.CountryCode = co.Code " +
+                    "ORDER BY ci.District, ci.Population DESC;";
+
+            // Execute the SQL query and store the result set
+            ResultSet rset = stmt.executeQuery(sql);
+
+            // Loop through the result set and map each row to a City object
+            while (rset.next()) {
+                City city = new City();
+                city.setName(rset.getString("CityName"));             // Set city name
+                city.setCountry_name(rset.getString("CountryName"));  // Set the name of the country the city belongs to
+                city.setDistrict(rset.getString("District"));         // Set the city's district
+                city.setRegion(rset.getString("Region"));             // Set the region name
+                city.setContinent(rset.getString("Continent"));       // Set the continent name
+                city.setPopulation(rset.getInt("Population"));        // Set the city's population
+
+                // Add the populated City object to the list
+                cities.add(city);
+            }
+
+        } catch (SQLException e) {
+            // Handle any SQL errors that occur during the query execution
+            System.out.println("Failed to get cities by district population: " + e.getMessage());
+        }
+
+        // Return the list of cities organized by continent and sorted by population
+        return cities;
+    }
 }
