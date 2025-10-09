@@ -67,13 +67,15 @@ public class ReportManager {
         // Create a CountryReport object using the active database connection
         CountryReport report = new CountryReport(con);
 
+        // All Countries by Continent Population
         System.out.println("\nGenerate All Countries by Continent Population Report");
-
-        // Fetch the list of countries sorted by continent and population
         ArrayList<Country> countries = report.getCountriesByContinentPopulationDesc();
-
-        // Print the result using Display class
         display.printCountryReport(countries);
+
+        // Top 5 populated countries per region
+        System.out.println("\nGenerating Top 5 Most Populated Countries per Region Report");
+        ArrayList<Country> top5CountriesPerRegion = report.getTop5CountriesPerRegion();
+        display.printCountryReport(top5CountriesPerRegion);
     }
 
     /**
