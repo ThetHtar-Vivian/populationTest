@@ -70,6 +70,13 @@ public class ReportManager {
         //
         ArrayList<City> top5Cities = report.getTop5CitiesByRegionPopulation();
         display.writeCityReportToFile(top5Cities, "Top 5 Cities by Region Population Report");
+
+        //
+        ArrayList<City> top5CitiesByCountry = report.getTop5CitiesByRegionPopulation();
+        display.writeCityReportToFile(top5CitiesByCountry, "No 15 Top 5 Cities by Country Population Report");
+
+
+
     }
 
     /**
