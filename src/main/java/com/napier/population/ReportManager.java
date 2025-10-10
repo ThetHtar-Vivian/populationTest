@@ -92,7 +92,7 @@ public class ReportManager {
 
         // 2. All the countries in a continent organized by largest population to smallest.
         ArrayList<Country> countriesByContinent = report.getCountriesByContinentPopulationDesc();
-        display.writeCountryReportToFile(countriesByContinent, "Countries by Continent Population Report");
+        display.writeCountryReportToFile(countriesByContinent, "2. Countries by Continent Population Report");
 
         //
         ArrayList<Country> countriesByPopulation = report.getAllCountriesByPopulationDesc();
