@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * ReportManager is responsible for coordinating between
  * report classes (e.g., CityReport, CountryReport, CapitalCityReport, PopulationReport)
  * and the Display class.
- * <p>
+ *
  * It acts as a "controller" layer:
  * - Calls the correct report class to fetch data from the database.
  * - Sends the result to Display for formatted output.
@@ -32,6 +32,7 @@ public class ReportManager {
     public ReportManager(Connection con) {
         this.con = con;
         this.display = new Display();
+        display.clearReportFile();
     }
 
     /**
@@ -46,39 +47,73 @@ public class ReportManager {
         // Create CityReport instance to query database
         CityReport report = new CityReport(con);
 
-        System.out.println("\nGenerating Top 10 Cities by Continent Report");
+        //
+        ArrayList<City> allCities = report.getAllCitiesByPopulation();
+        display.writeCityReportToFile(allCities, "All Cities by Population Report");
 
-        // Fetch top 10 cities by continent population
+        //
+        ArrayList<City> citiesByContinent = report.getCitiesByContinentPopulationDesc();
+        display.writeCityReportToFile(citiesByContinent, "Cities by Continent Population Report");
+
+        //
+        ArrayList<City> top50Cities = report.getTop50CitiesByPopulation();
+        display.writeCityReportToFile(top50Cities, "Top 50 Cities by Population Report");
+
+        //
         ArrayList<City> top10Cities = report.getTop10CitiesByContinentPopulation();
+        display.writeCityReportToFile(top10Cities, "Top 10 Cities By Continent Population Report");
 
-        // Print the result using Display class
-        display.printCityReport(top10Cities);
+        //
+        ArrayList<City> citiesByDistrict = report.getCitiesByDistrictPopulationDesc();
+        display.writeCityReportToFile(citiesByDistrict, "Cities by District Population Report");
+
+        //
+        ArrayList<City> top5Cities = report.getTop5CitiesByRegionPopulation();
+        display.writeCityReportToFile(top5Cities, "Top 5 Cities by Region Population Report");
+
+        //
+        ArrayList<City> top5CitiesByCountry = report.getTop5CitiesByRegionPopulation();
+        display.writeCityReportToFile(top5CitiesByCountry, "No 15 Top 5 Cities by Country Population Report");
+
+
+
     }
 
     /**
      * Generates and displays a country report.
-     * Currently a placeholder (no display logic yet).
+     * Currently, a placeholder (no display logic yet).
      * Steps (future implementation):
      * 1. Create CountryReport instance
      * 2. Fetch country data
      * 3. Pass to Display for formatted output
      */
     public void generateCountryReport() {
-        // Create a CountryReport object using the active database connection
         CountryReport report = new CountryReport(con);
 
-        System.out.println("\nGenerate All Countries by Continent Population Report");
+        //
+        ArrayList<Country> countriesByContinent = report.getCountriesByContinentPopulationDesc();
+        display.writeCountryReportToFile(countriesByContinent, "Countries by Continent Population Report");
 
-        // Fetch the list of countries sorted by continent and population
-        ArrayList<Country> countries = report.getCountriesByContinentPopulationDesc();
+        //
+        ArrayList<Country> countriesByPopulation = report.getAllCountriesByPopulationDesc();
+        display.writeCountryReportToFile(countriesByPopulation, "All Countries by Population Report");
 
-        // Print the result using Display class
-        display.printCountryReport(countries);
+        //
+        ArrayList<Country> top10Countries = report.getTop10CountriesByContinentPopulation();
+        display.writeCountryReportToFile(top10Countries, "Top 10 Countries by Continent Population Report");
+
+        //
+        ArrayList<Country> top50Countries = report.getTop50CountriesByPopulation();
+        display.writeCountryReportToFile(top50Countries, "Top 50 Countries by Population Report");
+
+        //
+        ArrayList<Country> top5Countries = report.getTop5CountriesPerRegion();
+        display.writeCountryReportToFile(top5Countries, "Top 5 Countries by Population Report");
     }
 
     /**
      * Generates and displays a capital city report.
-     * Currently a placeholder (no display logic yet).
+     * Currently, a placeholder (no display logic yet).
      * Steps (future implementation):
      * 1. Create CapitalCityReport instance
      * 2. Fetch capital city data

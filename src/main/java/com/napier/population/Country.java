@@ -6,98 +6,28 @@ package com.napier.population;
  * used for reporting (e.g., district, capital name).
  */
 public class Country {
-    /**
-     * ISO country code (primary key)
-     */
     private String code;
-
-    /**
-     * Country name
-     */
     private String name;
-
-    /**
-     * Continent (Asia, Europe, North America, Africa, Oceania, Antarctica, South America)
-     */
     private String continent;
-
-    /**
-     * Geographical region
-     */
     private String region;
-
-    /**
-     * Surface area in square km
-     */
     private double surface_area;
-
-    /**
-     * Year of independence (nullable in DB)
-     */
     private int indep_year;
-
-    /**
-     * Country population
-     */
     private int population;
-
-    /**
-     * Life expectancy (nullable in DB)
-     */
     private double life_expectancy;
-
-    /**
-     * Gross National Product
-     */
     private double gnp;
-
-    /**
-     * Old Gross National Product
-     */
     private double gnp_old;
-
-    /**
-     * Local/native name of the country
-     */
     private String local_name;
-
-    /**
-     * Government form (e.g., Republic, Monarchy)
-     */
     private String government_form;
-
-    /**
-     * Head of state (nullable in DB)
-     */
     private String head_of_state;
-
-    /**
-     * Capital city ID (FK → City.id, nullable in DB)
-     */
     private int capital;
-
-    /**
-     * ISO 2-letter country code
-     */
     private String code2;
 
-    // ----------------------------------------------------------------
     // Extra fields for reporting (not directly in the Country table)
-    // ----------------------------------------------------------------
 
-    /**
-     * District (from city join, for extended reports)
-     */
     private String district;
-
-    /**
-     * Capital city name (from city join, for reports)
-     */
     private String capitalName;
 
-    // ----------------------------------------------------------------
     // Getters and Setters
-    // ----------------------------------------------------------------
 
     /**
      * @return ISO country code
