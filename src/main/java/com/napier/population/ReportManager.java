@@ -47,10 +47,21 @@ public class ReportManager {
         // Create CityReport instance to query database
         CityReport report = new CityReport(con);
 
-        // Fetch top 10 cities by continent population
+        //
+        ArrayList<City> allCities = report.getAllCitiesByPopulation();
+        display.writeCityReportToFile(allCities, "All Cities by Population Report");
+
+        //
+        ArrayList<City> citiesByContinent = report.getCitiesByContinentPopulationDesc();
+        display.writeCityReportToFile(citiesByContinent, "Cities by Continent Population Report");
+
+        //
+        ArrayList<City> top50Cities = report.getTop50CitiesByPopulation();
+        display.writeCityReportToFile(top50Cities, "Top 50 Cities by Population Report");
+
+        //
         ArrayList<City> top10Cities = report.getTop10CitiesByContinentPopulation();
-        // Print the result using Display class
-        display.writeCityReportToFile(top10Cities, "Top 10 Cities By Continent Population");
+        display.writeCityReportToFile(top10Cities, "Top 10 Cities By Continent Population Report");
     }
 
     /**
@@ -63,6 +74,22 @@ public class ReportManager {
      */
     public void generateCountryReport() {
         CountryReport report = new CountryReport(con);
+
+        //
+        ArrayList<Country> countriesByContinent = report.getCountriesByContinentPopulationDesc();
+        display.writeCountryReportToFile(countriesByContinent, "Countries by Continent Population Report");
+
+        //
+        ArrayList<Country> countriesByPopulation = report.getAllCountriesByPopulationDesc();
+        display.writeCountryReportToFile(countriesByPopulation, "All Countries by Population Report");
+
+        //
+        ArrayList<Country> top10Countries = report.getTop10CountriesByContinentPopulation();
+        display.writeCountryReportToFile(top10Countries, "Top 10 Countries by Continent Population Report");
+
+        //
+        ArrayList<Country> top50Countries = report.getTop50CountriesByPopulation();
+        display.writeCountryReportToFile(top50Countries, "Top 50 Countries by Population Report");
     }
 
     /**
