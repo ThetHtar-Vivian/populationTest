@@ -196,7 +196,15 @@ public class CityReport {
             // - Join city and country tables
             // - Partition by continent and order by city population descending
             // - Use ROW_NUMBER() to select top 10 per continent
-            String sql = "SELECT CityName, CountryName, District, Region, Continent, Population " + "FROM ( " + "    SELECT c.Name AS CityName, " + "           co.Name AS CountryName, " + "           c.District, " + "           co.Region, " + "           co.Continent, " + "           c.Population, " + "           ROW_NUMBER() OVER (PARTITION BY co.Continent ORDER BY c.Population DESC) AS rn " + "    FROM city c " + "    JOIN country co ON c.CountryCode = co.Code " + ") sub " + "WHERE rn <= 10 " + "ORDER BY Continent, Population DESC;";
+            String sql = "SELECT CityName, CountryName, District, Region, Continent, Population " +
+                    "FROM ( " +
+                    "    SELECT c.Name AS CityName, " +
+                    "           co.Name AS CountryName, " +
+                    "           c.District, " + "           co.Region, " +
+                    "           co.Continent, " + "           c.Population, " +
+                    "           ROW_NUMBER() OVER (PARTITION BY co.Continent ORDER BY c.Population DESC) AS rn " +
+                    "    FROM city c " + "    JOIN country co ON c.CountryCode = co.Code " + ") sub " +
+                    "WHERE rn <= 10 " + "ORDER BY Continent, Population DESC;";
 
             // Execute query and get results
             ResultSet rset = stmt.executeQuery(sql);
@@ -263,6 +271,51 @@ public class CityReport {
         }
 
         // Return the list of cities organized by continent and sorted by population
+        return cities;
+    }
+
+    public ArrayList<City> getTop5CitiesByRegionPopulation() {
+        ArrayList<City> cities = new ArrayList<>();
+
+        try {
+            Statement stmt = con.createStatement();
+
+            String sql =
+                    "SELECT CityName, CountryName, District, Region, Continent, Population " +
+                            "FROM ( " +
+                            "   SELECT c.Name AS CityName, " +
+                            "          co.Name AS CountryName, " +
+                            "          c.District, " +
+                            "          co.Region, " +
+                            "          co.Continent, " +
+                            "          c.Population, " +
+                            "          ROW_NUMBER() OVER (PARTITION BY co.Region ORDER BY c.Population DESC) AS rn " +
+                            "   FROM city c " +
+                            "   JOIN country co ON c.CountryCode = co.Code " +
+                            "   WHERE c.Name IS NOT NULL " +
+                            "     AND co.Region IS NOT NULL " +
+                            "     AND co.Region <> '' " +
+                            ") ranked " +
+                            "WHERE rn <= 5 " +
+                            "ORDER BY Region, Population DESC;";
+
+            ResultSet rset = stmt.executeQuery(sql);
+
+            while (rset.next()) {
+                City city = new City();
+                city.setName(rset.getString("CityName"));
+                city.setCountry_name(rset.getString("CountryName"));
+                city.setDistrict(rset.getString("District"));
+                city.setRegion(rset.getString("Region"));
+                city.setContinent(rset.getString("Continent"));
+                city.setPopulation(rset.getInt("Population"));
+                cities.add(city);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Failed to get top 5 cities by region: " + e.getMessage());
+        }
+
         return cities;
     }
 }

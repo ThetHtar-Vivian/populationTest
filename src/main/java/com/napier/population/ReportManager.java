@@ -62,6 +62,14 @@ public class ReportManager {
         //
         ArrayList<City> top10Cities = report.getTop10CitiesByContinentPopulation();
         display.writeCityReportToFile(top10Cities, "Top 10 Cities By Continent Population Report");
+
+        //
+        ArrayList<City> citiesByDistrict = report.getCitiesByDistrictPopulationDesc();
+        display.writeCityReportToFile(citiesByDistrict, "Cities by District Population Report");
+
+        //
+        ArrayList<City> top5Cities = report.getTop5CitiesByRegionPopulation();
+        display.writeCityReportToFile(top5Cities, "Top 5 Cities by Region Population Report");
     }
 
     /**
@@ -90,6 +98,10 @@ public class ReportManager {
         //
         ArrayList<Country> top50Countries = report.getTop50CountriesByPopulation();
         display.writeCountryReportToFile(top50Countries, "Top 50 Countries by Population Report");
+
+        //
+        ArrayList<Country> top5Countries = report.getTop5CountriesPerRegion();
+        display.writeCountryReportToFile(top5Countries, "Top 5 Countries by Population Report");
     }
 
     /**
