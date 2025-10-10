@@ -6,34 +6,12 @@ package com.napier.population;
  * along with their percentages.
  */
 public class PeoplePopulation {
-    /**
-     * The level of population aggregation (e.g., "World", "Asia", "Europe", "Country")
-     */
+
     private String level;
-
-    /**
-     * Total population at the given level
-     */
     private long totalPopulation;
-
-    /**
-     * Population living in cities
-     */
     private long cityPopulation;
-
-    /**
-     * Population not living in cities (rural)
-     */
     private long nonCityPopulation;
-
-    /**
-     * Percentage of people living in cities (calculated from totalPopulation)
-     */
     private double cityPopulationPercentage;
-
-    /**
-     * Percentage of people not living in cities (calculated from totalPopulation)
-     */
     private double nonCityPopulationPercentage;
 
     /**

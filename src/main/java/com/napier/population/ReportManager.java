@@ -32,6 +32,7 @@ public class ReportManager {
     public ReportManager(Connection con) {
         this.con = con;
         this.display = new Display();
+        display.clearReportFile();
     }
 
     /**
@@ -46,45 +47,49 @@ public class ReportManager {
         // Create CityReport instance to query database
         CityReport report = new CityReport(con);
 
-        System.out.println("\nGenerating Top 10 Cities by Continent Report");
-
-        // Fetch top 10 cities by continent population
-        ArrayList<City> top10Cities = report.getTop10CitiesByContinentPopulation();
-
-        // Print the result using Display class
-        display.printCityReport(top10Cities);
-
-        System.out.println("\nGenerating Top 50 Cities by Population Report");
-
-        // Fetch top 50 cities by population
-        ArrayList<City> top50Cities = report.getTop50CitiesByPopulation();
-
-        // Print the result using Display class
-        display.printCityReport(top50Cities);
-
-        // 8. All the cities in a continent organized by largest population to smallest.
-        System.out.println("\nGenerate All Cities by Continent Population Report");
-
-        // Call the report method to retrieve a list of all cities,
-        // ordered by continent and sorted by population in descending order within each continent
-        ArrayList<City> cities = report.getCitiesByContinentPopulationDesc();
-
-        // Display the retrieved list in a formatted city report
-        display.printCityReport(cities);
-
-        System.out.println("\n Generate all cities by population");
-
-        // Fetch all cites by population
+        //
         ArrayList<City> allCities = report.getAllCitiesByPopulation();
+        display.writeCityReportToFile(allCities, "All Cities by Population Report");
 
-        // Print the result using the display class
-        display.printCityReport(allCities);
+        //
+        ArrayList<City> citiesByContinent = report.getCitiesByContinentPopulationDesc();
+        display.writeCityReportToFile(citiesByContinent, "Cities by Continent Population Report");
+
+        //
+        ArrayList<City> top50Cities = report.getTop50CitiesByPopulation();
+        display.writeCityReportToFile(top50Cities, "Top 50 Cities by Population Report");
+
+        //
+        ArrayList<City> top10Cities = report.getTop10CitiesByContinentPopulation();
+        display.writeCityReportToFile(top10Cities, "Top 10 Cities By Continent Population Report");
+
+        //
+        ArrayList<City> citiesByDistrict = report.getCitiesByDistrictPopulationDesc();
+        display.writeCityReportToFile(citiesByDistrict, "Cities by District Population Report");
+
+        //
+        ArrayList<City> top5Cities = report.getTop5CitiesByRegionPopulation();
+        display.writeCityReportToFile(top5Cities, "Top 5 Cities by Region Population Report");
+
+        //
+        ArrayList<City> top5CitiesByCountry = report.getTop5CitiesByRegionPopulation();
+        display.writeCityReportToFile(top5CitiesByCountry, "No 15 Top 5 Cities by Country Population Report");
+
+        ArrayList<City> cityByRegion = report.getAllCitiesByRegionPopulationDesc();
+        display.writeCityReportToFile(cityByRegion, "No 9 Cities by Region Population Report");
+
+        ArrayList<City> cityByCountry = report.getAllCitiesByCountryPopulationDesc();
+        display.writeCityReportToFile(cityByCountry, "No 10  Cities by Country Population Report");
+
+        //16. The topmost populated cities in each district.
+        ArrayList<City> topMostCity = report.getTopCityByDistrictPopulation();
+        display.writeCityReportToFile(topMostCity, "No 16 Top Most City by District Population Report");
 
     }
 
     /**
      * Generates and displays a country report.
-     * Currently a placeholder (no display logic yet).
+     * Currently, a placeholder (no display logic yet).
      * Steps (future implementation):
      * 1. Create CountryReport instance
      * 2. Fetch country data
@@ -93,19 +98,30 @@ public class ReportManager {
     public void generateCountryReport() {
         CountryReport report = new CountryReport(con);
 
-        // 4. The top 50 populated countries in the world.
-        System.out.println("\nGenerate Top 50 Most Populated Countries Report");
+        //
+        ArrayList<Country> countriesByContinent = report.getCountriesByContinentPopulationDesc();
+        display.writeCountryReportToFile(countriesByContinent, "Countries by Continent Population Report");
 
-        // Call the report method to retrieve a list of the top 50 most populated countries
+        //
+        ArrayList<Country> countriesByPopulation = report.getAllCountriesByPopulationDesc();
+        display.writeCountryReportToFile(countriesByPopulation, "All Countries by Population Report");
+
+        //
+        ArrayList<Country> top10Countries = report.getTop10CountriesByContinentPopulation();
+        display.writeCountryReportToFile(top10Countries, "Top 10 Countries by Continent Population Report");
+
+        //
         ArrayList<Country> top50Countries = report.getTop50CountriesByPopulation();
+        display.writeCountryReportToFile(top50Countries, "Top 50 Countries by Population Report");
 
-        // Display the retrieved list in a formatted country report
-        display.printCountryReport(top50Countries);
+        //
+        ArrayList<Country> top5Countries = report.getTop5CountriesPerRegion();
+        display.writeCountryReportToFile(top5Countries, "Top 5 Countries by Population Report");
     }
 
     /**
      * Generates and displays a capital city report.
-     * Currently a placeholder (no display logic yet).
+     * Currently, a placeholder (no display logic yet).
      * Steps (future implementation):
      * 1. Create CapitalCityReport instance
      * 2. Fetch capital city data

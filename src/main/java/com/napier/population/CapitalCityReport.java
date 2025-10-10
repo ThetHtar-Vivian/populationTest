@@ -1,7 +1,6 @@
 package com.napier.population;
 
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.Connection;
 
 /**
  * Handles generating reports specifically for capital cities.
