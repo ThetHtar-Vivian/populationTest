@@ -75,6 +75,11 @@ public class ReportManager {
         ArrayList<City> top5CitiesByCountry = report.getTop5CitiesByRegionPopulation();
         display.writeCityReportToFile(top5CitiesByCountry, "No 15 Top 5 Cities by Country Population Report");
 
+        ArrayList<City> cityByRegion = report.getAllCitiesByRegionPopulationDesc();
+        display.writeCityReportToFile(cityByRegion, "No 9 Cities by Region Population Report");
+
+
+
 
 
     }
