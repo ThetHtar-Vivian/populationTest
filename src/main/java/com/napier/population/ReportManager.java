@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * ReportManager is responsible for coordinating between
  * report classes (e.g., CityReport, CountryReport, CapitalCityReport, PopulationReport)
  * and the Display class.
- *
+ * <p>
  * It acts as a "controller" layer:
  * - Calls the correct report class to fetch data from the database.
  * - Sends the result to Display for formatted output.
@@ -75,6 +75,11 @@ public class ReportManager {
         ArrayList<City> top5CitiesByCountry = report.getTop5CitiesByRegionPopulation();
         display.writeCityReportToFile(top5CitiesByCountry, "No 15 Top 5 Cities by Country Population Report");
 
+        ArrayList<City> cityByRegion = report.getAllCitiesByRegionPopulationDesc();
+        display.writeCityReportToFile(cityByRegion, "No 9 Cities by Region Population Report");
+
+        ArrayList<City> cityByCountry = report.getAllCitiesByCountryPopulationDesc();
+        display.writeCityReportToFile(cityByCountry, "No 10  Cities by Country Population Report");
 
 
     }
