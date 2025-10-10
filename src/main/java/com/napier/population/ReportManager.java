@@ -67,9 +67,9 @@ public class ReportManager {
         ArrayList<City> citiesByDistrict = report.getCitiesByDistrictPopulationDesc();
         display.writeCityReportToFile(citiesByDistrict, "Cities by District Population Report");
 
-        //
+        // 14. The top 5 populated cities in a region.
         ArrayList<City> top5Cities = report.getTop5CitiesByRegionPopulation();
-        display.writeCityReportToFile(top5Cities, "Top 5 Cities by Region Population Report");
+        display.writeCityReportToFile(top5Cities, "14. Top 5 Cities by Region Population Report");
 
         //
         ArrayList<City> top5CitiesByCountry = report.getTop5CitiesByRegionPopulation();
