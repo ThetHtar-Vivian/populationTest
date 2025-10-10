@@ -81,6 +81,9 @@ public class ReportManager {
         ArrayList<City> cityByCountry = report.getAllCitiesByCountryPopulationDesc();
         display.writeCityReportToFile(cityByCountry, "No 10  Cities by Country Population Report");
 
+        //16. The topmost populated cities in each district.
+        ArrayList<City> topMostCity = report.getTopCityByDistrictPopulation();
+        display.writeCityReportToFile(topMostCity, "No 16 Top Most City by District Population Report");
 
     }
 
