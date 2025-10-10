@@ -106,9 +106,9 @@ public class ReportManager {
         ArrayList<Country> top50Countries = report.getTop50CountriesByPopulation();
         display.writeCountryReportToFile(top50Countries, "Top 50 Countries by Population Report");
 
-        //
+        // 6. The top 5 populated countries in a region.
         ArrayList<Country> top5Countries = report.getTop5CountriesPerRegion();
-        display.writeCountryReportToFile(top5Countries, "Top 5 Countries by Population Report");
+        display.writeCountryReportToFile(top5Countries, "6. Top 5 Countries by Population Report");
     }
 
     /**
