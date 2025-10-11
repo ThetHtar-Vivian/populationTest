@@ -152,3 +152,16 @@ using an SQL database, Java, and DevOps practices such as GitFlow branching, con
 
     [![getContinentTotalPopulation](https://img.shields.io/github/actions/workflow/status/ThetHtar-Vivian/populationTest/main.yml?branch=feature/getContinentTotalPopulation&label=getContinentTotalPopulation&style=flat-square)](https://github.com/ThetHtar-Vivian/populationTest/tree/feature/getContinentTotalPopulation)
 
+---
+
+## Contribution Spreadsheet
+
+| Matriculation Number | Code Review 1 | Code Review 2 |
+| -------------------- |:-------------:|:-------------:|
+| 40794415             |18             |               |
+| 40794414             |18             |               |
+| 40804618             |16             |               |
+| 40794411             |16             |               |
+| 40794410             |16             |               |
+| 40794501             |16             |               |
+| Total                |100            |               |
