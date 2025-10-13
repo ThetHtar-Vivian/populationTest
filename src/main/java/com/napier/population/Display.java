@@ -76,29 +76,27 @@ public class Display {
      *
      * @param capitals List of capital cities to display
      */
-    public void printCapitalCityReport(ArrayList<City> capitals) {
-        if (capitals == null || capitals.isEmpty()) {
-            System.out.println("No capital city data available.");
-            return;
-        }
+    public void printCapitalCityReport(ArrayList<City> capitals, String title) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(OUTPUT_FILE, true))) {
+            writer.write("===== " + title + " =====\n");
+            writer.write(String.format("%-5s %-30s %-45s %-30s %-15s %-12s%n",
+                    "ID", "City", "Country", "Region", "Continent", "Population"));
 
-        // Print table header
-        System.out.printf("%-5s %-30s %-45s %-30s %-15s %-12s%n",
-                "ID", "City", "Country", "Region", "Continent", "Population");
+            int id = 1;
+            for (City capital : capitals) {
+                if (capital == null) continue;
 
-        int id = 1; // Auto-increment row ID
-
-        // Print each capital city
-        for (City capital : capitals) {
-            if (capital == null) continue; // Defensive: skip null
-
-            System.out.printf("%-5s %-30s %-45s %-30s %-15s %-12d%n",
-                    id++,
-                    capital.getName(),
-                    capital.getCountry_name(),
-                    capital.getRegion(),
-                    capital.getContinent(),
-                    capital.getPopulation());
+                System.out.printf("%-5s %-30s %-45s %-30s %-15s %-12d%n",
+                        id++,
+                        capital.getName(),
+                        capital.getCountry_name(),
+                        capital.getRegion(),
+                        capital.getContinent(),
+                        capital.getPopulation());
+            }
+            writer.write("\n");
+        } catch (IOException e) {
+            System.out.println("Error writing capital city report: " + e.getMessage());
         }
     }
 
@@ -126,6 +124,31 @@ public class Display {
             writer.write("\n");
         } catch (IOException e) {
             System.out.println("Error writing population report: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Writes the overall population report to a text file.
+     * This method appends population data for a specified level (e.g., World, Continent, Region)
+     *
+     *  @param peoplePopulations A list of PeoplePopulation objects containing population data.
+     *  @param level The population level being reported (e.g., "World", "Continent", or "Region").
+     */
+    public void writeOverallPopulationReportToFile(ArrayList<PeoplePopulation> peoplePopulations, String level) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(OUTPUT_FILE, true))) {
+            writer.write("===== " + level + " Population Report =====\n");
+            writer.write(String.format("%-40s %-20s%n",
+                    level, "Total Population"));
+
+            for (PeoplePopulation pp : peoplePopulations) {
+                writer.write(String.format("%-40s %-20d%n",
+                        pp.getLevel(),
+                        pp.getTotalPopulation()
+                ));
+            }
+            writer.write("\n");
+        } catch (IOException e) {
+            System.out.println("Error population report: " + e.getMessage());
         }
     }
 
