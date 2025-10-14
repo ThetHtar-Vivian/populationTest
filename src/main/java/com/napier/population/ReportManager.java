@@ -138,7 +138,7 @@ public class ReportManager {
 
     /**
      * Generates and displays a population report.
-     * Currently a placeholder (no display logic yet).
+     * Currently, a placeholder (no display logic yet).
      * Steps (future implementation):
      * 1. Create PopulationReport instance
      * 2. Fetch population data

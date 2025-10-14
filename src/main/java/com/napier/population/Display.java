@@ -84,8 +84,6 @@ public class Display {
 
             int id = 1;
             for (City capital : capitals) {
-                if (capital == null) continue;
-
                 writer.write(String.format("%-5s %-30s %-45s %-30s %-15s %-12d%n",
                         id++,
                         capital.getName(),
