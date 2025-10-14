@@ -22848,3 +22848,6 @@ NLD        Netherlands                                             Amsterdam    
 BEL        Belgium                                                 Bruxelles [Brussel]  Bryssel                   Western Europe                 Europe          10239000    
 AUT        Austria                                                 Wien                 Wien                      Western Europe                 Europe          8091800     
 
+===== No 20 Top 50 Capital Cities by Population Report =====
+ID    City                           Country                                       Region                         Continent       Population  
+
