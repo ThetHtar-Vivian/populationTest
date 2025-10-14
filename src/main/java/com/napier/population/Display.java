@@ -76,7 +76,7 @@ public class Display {
      *
      * @param capitals List of capital cities to display
      */
-    public void printCapitalCityReport(ArrayList<City> capitals, String title) {
+    public void writeCapitalCityReport(ArrayList<City> capitals, String title) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(OUTPUT_FILE, true))) {
             writer.write("===== " + title + " =====\n");
             writer.write(String.format("%-5s %-30s %-45s %-30s %-15s %-12s%n",
