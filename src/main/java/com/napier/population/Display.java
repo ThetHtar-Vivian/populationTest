@@ -134,7 +134,7 @@ public class Display {
      */
     public void writeOverallPopulationReportToFile(ArrayList<PeoplePopulation> peoplePopulations, String level) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(OUTPUT_FILE, true))) {
-            writer.write("===== " + level + " Population Report =====\n");
+            writer.write("===== " + level + " Total Population Report =====\n");
             writer.write(String.format("%-40s %-20s%n",
                     level, "Total Population"));
 
