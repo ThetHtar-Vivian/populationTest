@@ -86,13 +86,13 @@ public class Display {
             for (City capital : capitals) {
                 if (capital == null) continue;
 
-                System.out.printf("%-5s %-30s %-45s %-30s %-15s %-12d%n",
+                writer.write(String.format("%-5s %-30s %-45s %-30s %-15s %-12d%n",
                         id++,
                         capital.getName(),
                         capital.getCountry_name(),
                         capital.getRegion(),
                         capital.getContinent(),
-                        capital.getPopulation());
+                        capital.getPopulation()));
             }
             writer.write("\n");
         } catch (IOException e) {
