@@ -28,6 +28,7 @@ public class App {
         manager.generateCityReport();         // Report on cities
         manager.generateCountryReport();      // Report on countries
         manager.generateCapitalCityReport();  // Report on capital cities
+        manager.generatePopulationReport();   // Report on Population
         // manager.generateLanguageReport();   // Report on languages
 
         // Close the database connection before exiting

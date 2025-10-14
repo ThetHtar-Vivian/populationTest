@@ -129,11 +129,16 @@ public class ReportManager {
      */
     public void generateCapitalCityReport() {
         CapitalCityReport report = new CapitalCityReport(con);
+
+        // No 20 Retrieve the list of the top 50 most populated capital cities from the report
+        ArrayList<City> top50capitals = report.getTop50CapitalCitiesByPopulation();
+        // Write the retrieved data to a file with the given report title
+        display.writeCapitalCityReport(top50capitals, "No 20 Top 50 Capital Cities by Population Report");
     }
 
     /**
      * Generates and displays a population report.
-     * Currently a placeholder (no display logic yet).
+     * Currently, a placeholder (no display logic yet).
      * Steps (future implementation):
      * 1. Create PopulationReport instance
      * 2. Fetch population data
@@ -141,5 +146,15 @@ public class ReportManager {
      */
     public void generatePopulationReport() {
         PopulationReport report = new PopulationReport(con);
+
+        // Call the method in PopulationReport to get population data per region
+        ArrayList<PeoplePopulation> regionPopulations = report.getRegionPopulationReport();
+        // Write the population report to file using Display
+        display.writePopulationReportToFile(regionPopulations, "Region");
+
+        // Call the method in PopulationReport to get total population per region
+        ArrayList<PeoplePopulation> regionTotalPopulations = report.getRegionTotalPopulation();
+        // Write the population report to file using Display
+        display.writeOverallPopulationReportToFile(regionTotalPopulations, "Region");
     }
 }
