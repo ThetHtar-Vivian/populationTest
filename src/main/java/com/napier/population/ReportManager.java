@@ -146,5 +146,10 @@ public class ReportManager {
      */
     public void generatePopulationReport() {
         PopulationReport report = new PopulationReport(con);
+
+        // Call the method in PopulationReport to get population data per region
+        ArrayList<PeoplePopulation> regionPopulations = report.getRegionPopulationReport();
+        // Write the population report to file using Display
+        display.writePopulationReportToFile(regionPopulations, "Region");
     }
 }
