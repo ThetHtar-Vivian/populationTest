@@ -117,6 +117,10 @@ public class ReportManager {
         //
         ArrayList<Country> top5Countries = report.getTop5CountriesPerRegion();
         display.writeCountryReportToFile(top5Countries, "Top 5 Countries by Population Report");
+
+        // No 29 Total Population of Each Country Report
+        ArrayList<Country> countryPopulations = report.getCountryPopulations();
+        display.writeCountryReportToFile(countryPopulations, "No 29 Total Population of Each Country Report");
     }
 
     /**
@@ -134,6 +138,15 @@ public class ReportManager {
         ArrayList<City> top50capitals = report.getTop50CapitalCitiesByPopulation();
         // Write the retrieved data to a file with the given report title
         display.writeCapitalCityReport(top50capitals, "No 20 Top 50 Capital Cities by Population Report");
+
+        // No 19 Retrieve all capital cities in each region organized by population
+        ArrayList<City> capitalCitiesByRegion = report.getAllCapitalCitiesByRegionPopulationDesc();
+        display.writeCapitalCityReport(capitalCitiesByRegion, "No 19 Capital Cities by Region Population Report");
+
+        // No 22 Top 5 Capital Cities by Region Population
+        ArrayList<City> top5CapitalsByRegion = report.getTop5CapitalCitiesByRegion();
+        display.writeCapitalCityReport(top5CapitalsByRegion, "No 22 Top 5 Capital Cities by Region Population Report");
+
     }
 
     /**
