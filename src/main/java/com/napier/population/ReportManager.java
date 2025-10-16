@@ -157,6 +157,9 @@ public class ReportManager {
         // Write the population report to file using Display
         display.writeOverallPopulationReportToFile(regionTotalPopulations, "Region");
 
+        ArrayList<PeoplePopulation> populations = report.getCountryPopulationReport();
+        display.writePopulationReportToFile(populations, "Country");
+
     }
 
     /**

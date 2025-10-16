@@ -29,7 +29,7 @@ public class App {
         manager.generateCountryReport();        // Report on countries
         manager.generateCapitalCityReport();    // Report on capital cities
         manager.generateLanguageReport();       // Report on languages
-
+        manager.generatePopulationReport();     // Report on population
         // Close the database connection before exiting
         db.disconnect();
     }
