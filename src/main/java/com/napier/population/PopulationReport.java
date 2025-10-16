@@ -12,9 +12,7 @@ import java.util.ArrayList;
  */
 public class PopulationReport {
 
-    /**
-     * Active database connection used to run queries
-     */
+    // Active database connection used to run queries
     private Connection con;
 
     /**
@@ -78,47 +76,49 @@ public class PopulationReport {
     }
 
     /**
-     * Gets the population of people, people living in cities, and people not living in cities in each country.
+     * No 28 Retrieves the total population of each region.
      *
-     * @return List of PeoplePopulation objects representing each country's population data.
+     * @return ArrayList<PeoplePopulation> list of regions with their total population
      */
-    public ArrayList<PeoplePopulation> getCountryPopulationReport() {
-        ArrayList<PeoplePopulation> populations = new ArrayList<>();
+    public ArrayList<PeoplePopulation> getRegionTotalPopulation() {
+        // List to store total population data per region
+        ArrayList<PeoplePopulation> regionPopulations = new ArrayList<>();
 
         try {
+            // Create a SQL statement
             Statement stmt = con.createStatement();
 
-            // SQL: Calculates total, city, and non-city population per country
-            String sql =
-                    "SELECT " +
-                            "    co.Name AS CountryName, " +
-                            "    co.Population AS TotalPopulation, " +
-                            "    COALESCE(SUM(ci.Population), 0) AS CityPopulation, " +
-                            "    (co.Population - COALESCE(SUM(ci.Population), 0)) AS NonCityPopulation " +
-                            "FROM country co " +
-                            "LEFT JOIN city ci ON co.Code = ci.CountryCode " +
-                            "GROUP BY co.Code, co.Name, co.Population " +
-                            "ORDER BY co.Name;";
+            // SQL query:
+            // - Selects region name and sum of population for that region
+            // - Groups by region
+            // - Orders the results by total population in descending order
+            String sql = "SELECT Region, SUM(Population) AS TotalPopulation " +
+                    "FROM country " +
+                    "GROUP BY Region " +
+                    "ORDER BY TotalPopulation DESC;";
 
+            // Execute the query
             ResultSet rset = stmt.executeQuery(sql);
 
-            // Process each record
+            // Loop through each row of the result set
             while (rset.next()) {
-                String level = rset.getString("CountryName");
-                long total = rset.getLong("TotalPopulation");
-                long cityPop = rset.getLong("CityPopulation");
-                long nonCityPop = rset.getLong("NonCityPopulation");
+                String regionName = rset.getString("Region");            // Get region name
+                long totalPopulation = rset.getLong("TotalPopulation"); // Get total population
 
-                PeoplePopulation pop = new PeoplePopulation(level, total, cityPop, nonCityPop);
-                populations.add(pop);
+                // Create a PeoplePopulation object with only the total population
+                PeoplePopulation pp = new PeoplePopulation(regionName, totalPopulation);
+
+                // Add the object to the list
+                regionPopulations.add(pp);
             }
 
         } catch (SQLException e) {
-            System.out.println("❌ Failed to get population by country: " + e.getMessage());
+            // Print error message if query fails
+            System.out.println("Failed to get region total population: " + e.getMessage());
         }
 
-        return populations;
+        // Return the list of total populations per region
+        return regionPopulations;
     }
-
 
 }

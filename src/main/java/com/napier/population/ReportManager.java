@@ -5,23 +5,15 @@ import java.util.ArrayList;
 
 /**
  * ReportManager is responsible for coordinating between
- * report classes (e.g., CityReport, CountryReport, CapitalCityReport, PopulationReport)
+ * report classes (CityReport, CountryReport, CapitalCityReport, PopulationReport, LanguageReport)
  * and the Display class.
- * <p>
  * It acts as a "controller" layer:
  * - Calls the correct report class to fetch data from the database.
  * - Sends the result to Display for formatted output.
  */
 public class ReportManager {
-    /**
-     * Database connection (passed in from DbConnection)
-     */
-    private final Connection con;
-
-    /**
-     * Display utility for printing reports
-     */
-    private final Display display;
+    private final Connection con;   // Active database connection
+    private final Display display;  // Responsible for output formatting and file writing
 
     /**
      * Constructor initializes the ReportManager with
@@ -32,6 +24,8 @@ public class ReportManager {
     public ReportManager(Connection con) {
         this.con = con;
         this.display = new Display();
+
+        // Clear previous report data before writing new outputs
         display.clearReportFile();
     }
 
@@ -47,39 +41,41 @@ public class ReportManager {
         // Create CityReport instance to query database
         CityReport report = new CityReport(con);
 
-        //
+        // All Cities by Population Report
         ArrayList<City> allCities = report.getAllCitiesByPopulation();
-        display.writeCityReportToFile(allCities, "All Cities by Population Report");
+        display.writeCityReportToFile(allCities, "No 7 All Cities by Population Report");
 
-        //
+        // All Cities by Population Report
         ArrayList<City> citiesByContinent = report.getCitiesByContinentPopulationDesc();
-        display.writeCityReportToFile(citiesByContinent, "Cities by Continent Population Report");
+        display.writeCityReportToFile(citiesByContinent, "No 8 Cities by Continent Population Report");
 
-        //
+        // Top 50 Cities by Population Report
         ArrayList<City> top50Cities = report.getTop50CitiesByPopulation();
-        display.writeCityReportToFile(top50Cities, "Top 50 Cities by Population Report");
+        display.writeCityReportToFile(top50Cities, "No 12 Top 50 Cities by Population Report");
 
-        //
+        // Top 10 Cities By Continent Population Report
         ArrayList<City> top10Cities = report.getTop10CitiesByContinentPopulation();
-        display.writeCityReportToFile(top10Cities, "Top 10 Cities By Continent Population Report");
+        display.writeCityReportToFile(top10Cities, "No 13 Top 10 Cities By Continent Population Report");
 
-        //
-        ArrayList<City> citiesByDistrict = report.getCitiesByDistrictPopulationDesc();
-        display.writeCityReportToFile(citiesByDistrict, "Cities by District Population Report");
-
-        //
+        // The top 5 populated cities in a region.
         ArrayList<City> top5Cities = report.getTop5CitiesByRegionPopulation();
-        display.writeCityReportToFile(top5Cities, "Top 5 Cities by Region Population Report");
+        display.writeCityReportToFile(top5Cities, "No 14 Top 5 Cities by Region Population Report");
 
-        //
-        ArrayList<City> top5CitiesByCountry = report.getTop5CitiesByRegionPopulation();
-        display.writeCityReportToFile(top5CitiesByCountry, "No 15 Top 5 Cities by Country Population Report");
-
+        // Cities by Region Population Report
         ArrayList<City> cityByRegion = report.getAllCitiesByRegionPopulationDesc();
         display.writeCityReportToFile(cityByRegion, "No 9 Cities by Region Population Report");
 
+        // Cities by Country Population Report
         ArrayList<City> cityByCountry = report.getAllCitiesByCountryPopulationDesc();
         display.writeCityReportToFile(cityByCountry, "No 10  Cities by Country Population Report");
+
+        // Cities by District Population Report
+        ArrayList<City> cityByDistrict = report.getCitiesByDistrictPopulationDesc();
+        display.writeCityReportToFile(cityByDistrict, "No 11 Cities by District Population Report");
+
+        // Top 5 Cities By Country Population Report
+        ArrayList<City> top5CitiesByCountries = report.getTop5CitiesByCountryPopulation();
+        display.writeCityReportToFile(top5CitiesByCountries, "No 15 Top 5 Cities By Country Population Report");
 
         //16. The topmost populated cities in each district.
         ArrayList<City> topMostCity = report.getTopCityByDistrictPopulation();
@@ -98,25 +94,29 @@ public class ReportManager {
     public void generateCountryReport() {
         CountryReport report = new CountryReport(con);
 
-        //
+        // Top 10 Cities By Continent Population Report
         ArrayList<Country> countriesByContinent = report.getCountriesByContinentPopulationDesc();
-        display.writeCountryReportToFile(countriesByContinent, "Countries by Continent Population Report");
+        display.writeCountryReportToFile(countriesByContinent, "No 2 Countries by Continent Population Report");
 
-        //
+        // All Countries by Population Report
         ArrayList<Country> countriesByPopulation = report.getAllCountriesByPopulationDesc();
-        display.writeCountryReportToFile(countriesByPopulation, "All Countries by Population Report");
+        display.writeCountryReportToFile(countriesByPopulation, "No 1 All Countries by Population Report");
 
-        //
+        // Top 10 Countries by Continent Population Report
         ArrayList<Country> top10Countries = report.getTop10CountriesByContinentPopulation();
-        display.writeCountryReportToFile(top10Countries, "Top 10 Countries by Continent Population Report");
+        display.writeCountryReportToFile(top10Countries, "No 5 Top 10 Countries by Continent Population Report");
 
-        //
+        // Top 50 Countries by Population Report
         ArrayList<Country> top50Countries = report.getTop50CountriesByPopulation();
-        display.writeCountryReportToFile(top50Countries, "Top 50 Countries by Population Report");
+        display.writeCountryReportToFile(top50Countries, "No 4 Top 50 Countries by Population Report");
 
-        //
+        // Countries by Region Population Report
+        ArrayList<Country> countriesByRegion = report.getCountriesByRegionPopulationDesc();
+        display.writeCountryReportToFile(countriesByRegion, "No 3 Countries by Region Population Report");
+
+        // The top 5 populated countries in a region.
         ArrayList<Country> top5Countries = report.getTop5CountriesPerRegion();
-        display.writeCountryReportToFile(top5Countries, "Top 5 Countries by Population Report");
+        display.writeCountryReportToFile(top5Countries, "No 6 Top 5 Countries by Population Report");
     }
 
     /**
@@ -133,7 +133,7 @@ public class ReportManager {
         // No 20 Retrieve the list of the top 50 most populated capital cities from the report
         ArrayList<City> top50capitals = report.getTop50CapitalCitiesByPopulation();
         // Write the retrieved data to a file with the given report title
-        display.writeCapitalCityReport(top50capitals, "No 20 Top 50 Capital Cities by Population Report");
+        display.writeCapitalCityReportToFile(top50capitals, "No 20 Top 50 Capital Cities by Population Report");
     }
 
     /**
@@ -152,7 +152,22 @@ public class ReportManager {
         // Write the population report to file using Display
         display.writePopulationReportToFile(regionPopulations, "Region");
 
-        ArrayList<PeoplePopulation> populations = report.getCountryPopulationReport();
-        display.writePopulationReportToFile(populations, "Country");
+        // Call the method in PopulationReport to get total population per region
+        ArrayList<PeoplePopulation> regionTotalPopulations = report.getRegionTotalPopulation();
+        // Write the population report to file using Display
+        display.writeOverallPopulationReportToFile(regionTotalPopulations, "Region");
+
+    }
+
+    /**
+     * Generates and writes the language population distribution report.
+     * This method will use the PopulationReport class to retrieve
+     * world language statistics and delegate formatted writing to Display
+     */
+    public void generateLanguageReport() {
+        PopulationReport report = new PopulationReport(con);
     }
 }
+
+
+
