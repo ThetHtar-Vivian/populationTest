@@ -1,0 +1,527 @@
+package com.napier.population;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+/**
+ * Provides methods for generating city reports from the database.
+ * Each method queries the database and returns a list of City objects
+ * for use in reports.
+ */
+public class CityReport {
+
+    // Active database connection used to query capital city information
+    private Connection con;
+
+    /**
+     * Constructor initializes the CityReport with an active DB connection.
+     *
+     * @param con Active MySQL database connection
+     */
+    public CityReport(Connection con) {
+        this.con = con;
+    }
+
+    /**
+     * Retrieves all cities in the world ordered by population from largest to smallest.
+     *
+     * @return A list of City objects sorted by population in descending order.
+     */
+
+    public ArrayList<City> getAllCitiesByPopulation() {
+        ArrayList<City> cities = new ArrayList<>();
+        try {
+            Statement stmt = con.createStatement();
+            String sql = "SELECT \n" +
+                    "    c.Name AS CityName,\n" +
+                    "    co.Name AS CountryName,\n" +
+                    "    c.District,\n" +
+                    "    co.Region,\n" +
+                    "    co.Continent,\n" +
+                    "    c.Population\n" +
+                    "FROM city c\n" +
+                    "JOIN country co ON c.CountryCode = co.Code\n" +
+                    "ORDER BY c.Population DESC;\n";
+
+            ResultSet rset = stmt.executeQuery(sql);
+
+            while (rset.next()) {
+                City city = new City(
+                        rset.getString("CityName"),     // Set city name
+                        rset.getString("CountryName"),  // Set country name
+                        rset.getString("District"),     // Set district
+                        rset.getString("Region"),       // Set region
+                        rset.getString("Continent"),    // Set continent
+                        rset.getInt("Population")       // Set population
+                );
+                cities.add(city);
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to get cities by population: " + e.getMessage());
+        }
+        return cities;
+    }
+
+    /**
+     * 8. Retrieves a list of all cities in the world, organized by continent and
+     * sorted by city population in descending order within each continent.
+     * The method joins the 'city' and 'country' tables to include relevant
+     * information such as country name, district, region, and continent.
+     *
+     * @return An ArrayList of City objects containing city details ordered by continent and population.
+     */
+    public ArrayList<City> getCitiesByContinentPopulationDesc() {
+        // Create a list to store the retrieved City objects
+        ArrayList<City> cities = new ArrayList<>();
+
+        try {
+            // Create a SQL statement object to execute the query
+            Statement stmt = con.createStatement();
+
+            // SQL query:
+            // - Joins 'city' and 'country' tables using the country code
+            // - Selects city name, country name, district, region, continent, and population
+            // - Orders the result first by continent (alphabetically),
+            //   then by city population in descending order within each continent
+            String sql = "SELECT ci.Name AS CityName, co.Name AS CountryName, ci.District, " +
+                    "co.Region, co.Continent, ci.Population " +
+                    "FROM city ci " +
+                    "JOIN country co ON ci.CountryCode = co.Code " +
+                    "ORDER BY co.Continent, ci.Population DESC;";
+
+            // Execute the SQL query and store the result set
+            ResultSet rset = stmt.executeQuery(sql);
+
+            // Loop through the result set and map each row to a City object
+            while (rset.next()) {
+                City city = new City(
+                        rset.getString("CityName"),     // Set city name
+                        rset.getString("CountryName"),  // Set country name
+                        rset.getString("District"),     // Set district
+                        rset.getString("Region"),       // Set region
+                        rset.getString("Continent"),    // Set continent
+                        rset.getInt("Population")       // Set population
+                );
+                cities.add(city);
+            }
+
+        } catch (SQLException e) {
+            // Handle any SQL errors that occur during the query execution
+            System.out.println("Failed to get cities by continent population: " + e.getMessage());
+        }
+
+        // Return the list of cities organized by continent and sorted by population
+        return cities;
+    }
+
+    /**
+     * Retrieves the top 50 most populated cities in the world.
+     * This method queries the database, joining the city and country tables
+     * to get additional information such as country name, region, and continent.
+     * Results are ordered by city population in descending order and limited to 50 entries.
+     *
+     * @return ArrayList of City objects containing city name, country, district, region, continent, and population
+     */
+    public ArrayList<City> getTop50CitiesByPopulation() {
+        ArrayList<City> cities = new ArrayList<>();
+
+        try {
+            // Create a statement object to execute the SQL query
+            Statement stmt = con.createStatement();
+
+            // SQL query explanation:
+            // - Select city name, country name, district, region, continent, and population
+            // - Join city table with country table using CountryCode
+            // - Order the results by population descending
+            // - Limit to top 50 cities
+            String sql =
+                    "SELECT city.Name AS City, " +
+                            "       country.Name AS Country, " +
+                            "       city.District, " +
+                            "       country.Region, " +
+                            "       country.Continent, " +
+                            "       city.Population " +
+                            "FROM city " +
+                            "JOIN country ON city.CountryCode = country.Code " +
+                            "ORDER BY city.Population DESC " +
+                            "LIMIT 50;";
+
+            // Execute the query
+            ResultSet rset = stmt.executeQuery(sql);
+
+            // Process each row in the result set
+            while (rset.next()) {
+                City city = new City(
+                        rset.getString("City"),     // Set city name
+                        rset.getString("Country"),  // Set country name
+                        rset.getString("District"),     // Set district
+                        rset.getString("Region"),       // Set region
+                        rset.getString("Continent"),    // Set continent
+                        rset.getInt("Population")       // Set population
+                );
+                cities.add(city);
+            }
+        } catch (SQLException e) {
+            // Print error message if query fails
+            System.out.println("Failed to get city report: " + e.getMessage());
+        }
+
+        // Return the list of top 50 cities
+        return cities;
+    }
+
+    /**
+     * Retrieves the top 10 most populated cities for each continent.
+     * SQL uses ROW_NUMBER() window function to rank cities within each continent.
+     * Only the top 10 cities per continent are returned, ordered by continent and population descending.
+     *
+     * @return ArrayList of City objects containing name, country, district, region, continent, and population
+     */
+    public ArrayList<City> getTop10CitiesByContinentPopulation() {
+        ArrayList<City> cities = new ArrayList<>();
+
+        try {
+            // Create a statement to execute SQL query
+            Statement stmt = con.createStatement();
+
+            // SQL query:
+            // - Join city and country tables
+            // - Partition by continent and order by city population descending
+            // - Use ROW_NUMBER() to select top 10 per continent
+            String sql = "SELECT CityName, CountryName, District, Region, Continent, Population " +
+                    "FROM ( " +
+                    "    SELECT c.Name AS CityName, " +
+                    "           co.Name AS CountryName, " +
+                    "           c.District, " + "           co.Region, " +
+                    "           co.Continent, " + "           c.Population, " +
+                    "           ROW_NUMBER() OVER (PARTITION BY co.Continent ORDER BY c.Population DESC) AS rn " +
+                    "    FROM city c " + "    JOIN country co ON c.CountryCode = co.Code " +
+                    ") sub " +
+                    "WHERE rn <= 10 " +
+                    "ORDER BY Continent, Population DESC;";
+
+            // Execute query and get results
+            ResultSet rset = stmt.executeQuery(sql);
+
+            // Process each row in the result set
+            while (rset.next()) {
+                City city = new City(
+                        rset.getString("CityName"),     // Set city name
+                        rset.getString("CountryName"),  // Set country name
+                        rset.getString("District"),     // Set district
+                        rset.getString("Region"),       // Set region
+                        rset.getString("Continent"),    // Set continent
+                        rset.getInt("Population")       // Set population
+                );
+                cities.add(city);
+            }
+        } catch (SQLException e) {
+            // Print error message if query fails
+            System.out.println("Failed to get top 10 cities by continent: " + e.getMessage());
+        }
+
+        return cities; // Return list of top cities
+    }
+
+    /**
+     * Retrieves the top 5 most populated cities for each region.
+     * Uses SQL window function ROW_NUMBER() to rank cities within their region by population.
+     * Skips any null or empty city names and region values to ensure clean report data.
+     *
+     * @return ArrayList of City objects containing name, country, district, region, continent, and population.
+     */
+    public ArrayList<City> getTop5CitiesByRegionPopulation() {
+        ArrayList<City> cities = new ArrayList<>();
+
+        try {
+            Statement stmt = con.createStatement();
+
+            String sql =
+                    "SELECT CityName, CountryName, District, Region, Continent, Population " +
+                            "FROM ( " +
+                            "   SELECT c.Name AS CityName, " +
+                            "          co.Name AS CountryName, " +
+                            "          c.District, " +
+                            "          co.Region, " +
+                            "          co.Continent, " +
+                            "          c.Population, " +
+                            "          ROW_NUMBER() OVER (PARTITION BY co.Region ORDER BY c.Population DESC) AS rn " +
+                            "   FROM city c " +
+                            "   JOIN country co ON c.CountryCode = co.Code " +
+                            "   WHERE c.Name IS NOT NULL " +
+                            "     AND co.Region IS NOT NULL " +
+                            "     AND co.Region <> '' " +
+                            ") ranked " +
+                            "WHERE rn <= 5 " +
+                            "ORDER BY Region, Population DESC;";
+
+            ResultSet rset = stmt.executeQuery(sql);
+
+            while (rset.next()) {
+                City city = new City(
+                        rset.getString("CityName"),     // Set city name
+                        rset.getString("CountryName"),  // Set country name
+                        rset.getString("District"),     // Set district
+                        rset.getString("Region"),       // Set region
+                        rset.getString("Continent"),    // Set continent
+                        rset.getInt("Population")       // Set population
+                );
+                cities.add(city);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Failed to get top 5 cities by region: " + e.getMessage());
+        }
+
+        return cities;
+    }
+
+    /**
+     * Retrieves all cities from the database, ordered by region and then by population
+     * in descending order. Each city record is joined with its corresponding country
+     * to include region, continent, and country name details.
+     *
+     * @return an ArrayList of City objects containing:
+     * - city name
+     * - country name
+     * - district
+     * - region
+     * - continent
+     * - population
+     * If a database error occurs, an empty list is returned.
+     */
+    public ArrayList<City> getAllCitiesByRegionPopulationDesc() {
+        ArrayList<City> cities = new ArrayList<>();
+
+        try {
+            Statement stmt = con.createStatement();
+
+            String sql = "SELECT " +
+                    "ci.Name AS CityName, " +
+                    "co.Name AS CountryName, " +
+                    "ci.District, " +
+                    "co.Region, " +
+                    "co.Continent, " +
+                    "ci.Population " +
+                    "FROM city ci " +
+                    "JOIN country co ON ci.CountryCode = co.Code " +
+                    "ORDER BY co.Region, ci.Population DESC;";
+
+            ResultSet rset = stmt.executeQuery(sql);
+
+            while (rset.next()) {
+                City city = new City(
+                        rset.getString("CityName"),     // Set city name
+                        rset.getString("CountryName"),  // Set country name
+                        rset.getString("District"),     // Set district
+                        rset.getString("Region"),       // Set region
+                        rset.getString("Continent"),    // Set continent
+                        rset.getInt("Population")       // Set population
+                );
+                cities.add(city);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Failed to get cities by region population: " + e.getMessage());
+        }
+
+        return cities;
+    }
+
+    /**
+     * Retrieves all cities in all countries, ordered by country name
+     * and then by city population descending.
+     *
+     * @return ArrayList of City objects
+     */
+    public ArrayList<City> getAllCitiesByCountryPopulationDesc() {
+        ArrayList<City> cities = new ArrayList<>();
+
+        try {
+            Statement stmt = con.createStatement();
+
+            String sql = "SELECT " +
+                    "ci.Name AS CityName, " +
+                    "co.Name AS CountryName, " +
+                    "ci.District, " +
+                    "co.Region, " +
+                    "co.Continent, " +
+                    "ci.Population " +
+                    "FROM city ci " +
+                    "JOIN country co ON ci.CountryCode = co.Code " +
+                    "ORDER BY co.Name, ci.Population DESC;";
+
+            ResultSet rset = stmt.executeQuery(sql);
+
+            while (rset.next()) {
+                City city = new City(
+                        rset.getString("CityName"),     // Set city name
+                        rset.getString("CountryName"),  // Set country name
+                        rset.getString("District"),     // Set district
+                        rset.getString("Region"),       // Set region
+                        rset.getString("Continent"),    // Set continent
+                        rset.getInt("Population")       // Set population
+                );
+                cities.add(city);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Failed to get cities by country population: " + e.getMessage());
+        }
+
+        return cities;
+    }
+
+    /**
+     * Retrieves the cities for each district population descending.
+     *
+     * @return ArrayList of City objects
+     */
+    public ArrayList<City> getCitiesByDistrictPopulationDesc() {
+        // Create a list to store the retrieved City objects
+        ArrayList<City> cities = new ArrayList<>();
+
+        try {
+            // Create a SQL statement object to execute the query
+            Statement stmt = con.createStatement();
+
+            // SQL query:
+            // - Joins 'city' and 'country' tables using the country code
+            // - Selects city name, country name, district, region, continent, and population
+            // - Orders the result first by district (alphabetically),
+            //   then by city population in descending order within each district
+            String sql = "SELECT ci.Name AS CityName, co.Name AS CountryName, ci.District, " +
+                    "co.Region, co.Continent, ci.Population " +
+                    "FROM city ci " +
+                    "JOIN country co ON ci.CountryCode = co.Code " +
+                    "ORDER BY ci.District, ci.Population DESC;";
+
+            // Execute the SQL query and store the result set
+            ResultSet rset = stmt.executeQuery(sql);
+
+            // Loop through the result set and map each row to a City object
+            while (rset.next()) {
+                City city = new City(
+                        rset.getString("CityName"),     // Set city name
+                        rset.getString("CountryName"),  // Set country name
+                        rset.getString("District"),     // Set district
+                        rset.getString("Region"),       // Set region
+                        rset.getString("Continent"),    // Set continent
+                        rset.getInt("Population")       // Set population
+                );
+                cities.add(city);
+            }
+
+        } catch (SQLException e) {
+            // Handle any SQL errors that occur during the query execution
+            System.out.println("Failed to get cities by district population: " + e.getMessage());
+        }
+
+        // Return the list of cities organized by continent and sorted by population
+        return cities;
+    }
+
+    /**
+     * Retrieves the top 5 most populated cities for each country.
+     * Uses a window function to number cities per country by population and
+     * returns rows where row_number <= 5. Results are ordered by country name
+     * and city population descending.
+     *
+     * @return ArrayList of City objects containing city name, country, district, region, continent, and population
+     */
+    public ArrayList<City> getTop5CitiesByCountryPopulation() {
+        ArrayList<City> cities = new ArrayList<>();
+
+        String sql =
+                "SELECT CityName, CountryName, District, Region, Continent, Population " +
+                        "FROM ( " +
+                        "    SELECT c.Name AS CityName, " +
+                        "           co.Name AS CountryName, " +
+                        "           c.District, " +
+                        "           co.Region, " +
+                        "           co.Continent, " +
+                        "           c.Population, " +
+                        "           ROW_NUMBER() OVER (PARTITION BY co.Code ORDER BY c.Population DESC) AS rn " +
+                        "    FROM city c " +
+                        "    JOIN country co ON c.CountryCode = co.Code " +
+                        ") sub " +
+                        "WHERE rn <= 5 " +
+                        "ORDER BY CountryName, Population DESC;";
+
+        try (Statement stmt = con.createStatement();
+             ResultSet rset = stmt.executeQuery(sql)) {
+
+            while (rset.next()) {
+                City city = new City(
+                        rset.getString("CityName"),     // Set city name
+                        rset.getString("CountryName"),  // Set country name
+                        rset.getString("District"),     // Set district
+                        rset.getString("Region"),       // Set region
+                        rset.getString("Continent"),    // Set continent
+                        rset.getInt("Population")       // Set population
+                );
+                cities.add(city);
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to get city report: " + e.getMessage());
+        }
+
+        return cities;
+    }
+
+    /**
+     * 16. Retrieves the most populated city in each district.
+     * @return A list of City objects containing the top city per district.
+     */
+    public ArrayList<City> getTopCityByDistrictPopulation() {
+        // List to store the top cities for each district
+        ArrayList<City> cities = new ArrayList<>();
+
+        try {
+            // Create a SQL statement
+            Statement stmt = con.createStatement();
+
+            // SQL query:
+            // - Join city and country tables
+            // - Use a subquery to find the maximum population for each district
+            // - Match each city with the max population in its district
+            // - Order the results by district name
+            String sql = "SELECT ci.Name AS CityName, co.Name AS CountryName, ci.District, " +
+                    "co.Region, co.Continent, ci.Population " +
+                    "FROM city ci " +
+                    "JOIN country co ON ci.CountryCode = co.Code " +
+                    "INNER JOIN ( " +
+                    "    SELECT District, MAX(Population) AS MaxPop " +
+                    "    FROM city " +
+                    "    GROUP BY District " +
+                    ") max_ci ON ci.District = max_ci.District AND ci.Population = max_ci.MaxPop " +
+                    "ORDER BY ci.District;";
+
+            // Execute the query
+            ResultSet rset = stmt.executeQuery(sql);
+
+            // Loop through the result set and create City objects
+            while (rset.next()) {
+                City city = new City(
+                        rset.getString("CityName"),     // Set city name
+                        rset.getString("CountryName"),  // Set country name
+                        rset.getString("District"),     // Set district
+                        rset.getString("Region"),       // Set region
+                        rset.getString("Continent"),    // Set continent
+                        rset.getInt("Population")       // Set population
+                );
+                cities.add(city);
+            }
+
+        } catch (SQLException e) {
+            // Print error message if query fails
+            System.out.println("Failed to get top city by district population: " + e.getMessage());
+        }
+
+        // Return the list of top cities
+        return cities;
+    }
+}
