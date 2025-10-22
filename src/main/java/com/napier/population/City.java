@@ -60,17 +60,4 @@ public class City {
     public String getRegion() {
         return region;
     }
-
-    /**
-     * Returns a string representation of the City object.
-     *
-     * @return A formatted string with city details
-     */
-    @Override
-    public String toString() {
-        return String.format(
-                "City{name='%s', district='%s', population=%d, country_name='%s', continent='%s', region='%s'}",
-                name, district, population, country_name, continent, region
-        );
-    }
 }

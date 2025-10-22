@@ -75,17 +75,4 @@ public class PeoplePopulation {
     public double getNonCityPopulationPercentage() {
         return nonCityPopulationPercentage;
     }
-
-    /**
-     * Returns a string representation of the PeoplePopulation object.
-     *
-     * @return Formatted string containing all population details
-     */
-    @Override
-    public String toString() {
-        return String.format(
-                "PeoplePopulation{level='%s', totalPopulation=%d, cityPopulation=%d (%.2f%%), nonCityPopulation=%d (%.2f%%)}",
-                level, totalPopulation, cityPopulation, cityPopulationPercentage, nonCityPopulation, nonCityPopulationPercentage
-        );
-    }
 }

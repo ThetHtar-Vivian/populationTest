@@ -67,17 +67,4 @@ public class Country {
     public String getCapitalName() {
         return capitalName;
     }
-
-    /**
-     * Returns a string representation of the Country object.
-     *
-     * @return A formatted string with country details
-     */
-    @Override
-    public String toString() {
-        return String.format(
-                "Country{code='%s', name='%s', continent='%s', region='%s', population=%d, district='%s', capitalName='%s'}",
-                code, name, continent, region, population, district, capitalName
-        );
-    }
 }

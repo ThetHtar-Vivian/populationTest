@@ -20,37 +20,33 @@ public class DbConnection {
      * Includes retry logic (up to 10 attempts) with a wait time
      * between retries, useful when the database container is starting up.
      */
-    public Connection connect(String url, String user, String password) {
+    public Connection connect(String location, int delay) {
         try {
-            // Load MySQL JDBC driver
+            // Load Database driver
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             System.out.println("Could not load SQL driver");
-            System.exit(-1); // Exit if driver not found
+            System.exit(-1);
         }
 
-        int retries = 10; // Maximum connection attempts
-
-        /*
-         * Attempt to connect multiple times (10 retries).
-         * Waits 30 seconds between retries in case DB service is not ready.
-         */
+        int retries = 10;
         for (int i = 0; i < retries; ++i) {
             System.out.println("Connecting to database...");
             try {
-                Thread.sleep(30000); // Pause before retrying connection
-
-                // Establish connection to the database
-                con = DriverManager.getConnection(url, user, password);
+                // Wait a bit for db to start
+                Thread.sleep(delay);
+                // Connect to database
+                con = DriverManager.getConnection(
+                        "jdbc:mysql://" + location + "/world?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",
+                        "root",
+                        "abc123!@#");
 
                 System.out.println("Successfully connected");
-                break; // Exit loop once connection succeeds
+                break;
             } catch (SQLException sqle) {
-                // Log failure and retry
-                System.out.println("Failed to connect to database attempt " + i);
+                System.out.println("Failed to connect to database attempt " + Integer.toString(i));
                 System.out.println(sqle.getMessage());
             } catch (InterruptedException ie) {
-                // This should rarely happen, but log it anyway
                 System.out.println("Thread interrupted? Should not happen.");
             }
         }

@@ -34,6 +34,10 @@ public class CountryReport {
     public ArrayList<Country> getCountriesByContinentPopulationDesc() {
         ArrayList<Country> countries = new ArrayList<>();
 
+        if (con == null) {
+            return countries;
+        }
+
         try {
             Statement stmt = con.createStatement();
 
@@ -76,6 +80,10 @@ public class CountryReport {
         // Create a list to hold all countries retrieved from the database
         ArrayList<Country> countries = new ArrayList<>();
 
+        if (con == null) {
+            return countries;
+        }
+
         try {
             // Create a statement to execute SQL queries
             Statement stmt = con.createStatement();
@@ -117,6 +125,7 @@ public class CountryReport {
         // Return the complete list of countries sorted by population
         return countries;
     }
+
     /**
      * Retrieves the top 10 most populated countries within each continent.
      *
@@ -130,6 +139,10 @@ public class CountryReport {
     public ArrayList<Country> getTop10CountriesByContinentPopulation() {
         // Create a list to store the resulting countries
         ArrayList<Country> countries = new ArrayList<>();
+
+        if (con == null) {
+            return countries;
+        }
 
         try {
             // Create a statement to execute the SQL query
@@ -193,6 +206,10 @@ public class CountryReport {
         // Create a list to store the retrieved Country objects
         ArrayList<Country> countries = new ArrayList<>();
 
+        if (con == null) {
+            return countries;
+        }
+
         try {
             // Create a SQL statement object to execute the query
             Statement stmt = con.createStatement();
@@ -240,6 +257,10 @@ public class CountryReport {
     public ArrayList<Country> getCountriesByRegionPopulationDesc() {
         ArrayList<Country> countries = new ArrayList<>();
 
+        if (con == null) {
+            return countries;
+        }
+
         try {
             Statement stmt = con.createStatement();
 
@@ -284,6 +305,10 @@ public class CountryReport {
      */
     public ArrayList<Country> getTop5CountriesPerRegion() {
         ArrayList<Country> countries = new ArrayList<>();
+
+        if (con == null) {
+            return countries;
+        }
 
         try {
             Statement stmt = con.createStatement();

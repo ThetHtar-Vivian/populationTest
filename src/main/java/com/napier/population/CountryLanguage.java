@@ -14,14 +14,6 @@ public class CountryLanguage {
     private double world_percentage;
 
     /**
-     * Default constructor for creating an empty CountryLanguage object.
-     * Useful for frameworks or for setting values later via setters.
-     */
-    public CountryLanguage() {
-        // Default constructor
-    }
-
-    /**
      * Parameterized constructor for creating a fully initialized CountryLanguage object.
      *
      * @param language         Name of the language
@@ -44,18 +36,5 @@ public class CountryLanguage {
 
     public double getWorld_percentage() {
         return world_percentage;
-    }
-
-    /**
-     * Returns a formatted string representation of the CountryLanguage object.
-     *
-     * @return A formatted string with language details
-     */
-    @Override
-    public String toString() {
-        return String.format(
-                "CountryLanguage{language='%s', percentage=%.2f, world_percentage=%.2f}",
-                language, percentage, world_percentage
-        );
     }
 }

@@ -32,6 +32,10 @@ public class PopulationReport {
     public ArrayList<PeoplePopulation> getCountryPopulationReport() {
         ArrayList<PeoplePopulation> populations = new ArrayList<>();
 
+        if (con == null) {
+            return populations;
+        }
+
         try {
             Statement stmt = con.createStatement();
 
@@ -75,15 +79,19 @@ public class PopulationReport {
     public ArrayList<PeoplePopulation> getWorldPopulation() {
         ArrayList<PeoplePopulation> worldPopulations = new ArrayList<>();
 
+        if (con == null) {
+            return worldPopulations;
+        }
+
         try {
             Statement stmt = con.createStatement();
 
-            // ✅ SQL: Calculate total world population
+            // SQL: Calculate total world population
             String sql = "SELECT SUM(Population) AS WorldPopulation FROM country;";
 
             ResultSet rset = stmt.executeQuery(sql);
 
-            // ✅ Process result
+            // Process result
             if (rset.next()) {
                 long total = rset.getLong("WorldPopulation");
                 PeoplePopulation pop = new PeoplePopulation("World", total);
@@ -108,6 +116,10 @@ public class PopulationReport {
      */
     public ArrayList<PeoplePopulation> getTotalPopulationPerCountry() {
         ArrayList<PeoplePopulation> populations = new ArrayList<>();
+
+        if (con == null) {
+            return populations;
+        }
 
         try {
             Statement stmt = con.createStatement();
@@ -150,6 +162,11 @@ public class PopulationReport {
     public ArrayList<PeoplePopulation> getContinentTotalPopulation() {
         ArrayList<PeoplePopulation> continentPopulations = new ArrayList<>();
 
+
+        if (con == null) {
+            return continentPopulations;
+        }
+
         try {
             Statement stmt = con.createStatement();
 
@@ -188,6 +205,10 @@ public class PopulationReport {
     public ArrayList<PeoplePopulation> getDistrictTotalPopulation() {
         // Initialize list to store population data by district
         ArrayList<PeoplePopulation> peoplePopulations = new ArrayList<>();
+
+        if (con == null) {
+            return peoplePopulations;
+        }
 
         try {
             // Create SQL statement object
@@ -231,6 +252,10 @@ public class PopulationReport {
     public ArrayList<PeoplePopulation> getContinentPopulationReport() {
         // Create a list to store population results
         ArrayList<PeoplePopulation> peoplePopulations = new ArrayList<>();
+
+        if (con == null) {
+            return peoplePopulations;
+        }
 
         try {
             // Create SQL statement object for query execution
@@ -276,6 +301,10 @@ public class PopulationReport {
         // Create a list to store city-level population data
         ArrayList<PeoplePopulation> peoplePopulations = new ArrayList<>();
 
+        if (con == null) {
+            return peoplePopulations;
+        }
+
         try {
             // Create SQL statement object
             Statement stmt = con.createStatement();
@@ -318,6 +347,10 @@ public class PopulationReport {
     public ArrayList<CountryLanguage> getWorldLanguageReport() {
         // Initialize list to store language report data
         ArrayList<CountryLanguage> languages = new ArrayList<>();
+
+        if (con == null) {
+            return languages;
+        }
 
         try {
             // Create a Statement object to execute SQL queries
@@ -374,6 +407,10 @@ public class PopulationReport {
         // List to store population data for each region
         ArrayList<PeoplePopulation> regionPopulations = new ArrayList<>();
 
+        if (con == null) {
+            return regionPopulations;
+        }
+
         try {
             // Create a SQL statement
             Statement stmt = con.createStatement();
@@ -421,6 +458,10 @@ public class PopulationReport {
     public ArrayList<PeoplePopulation> getRegionTotalPopulation() {
         // List to store total population data per region
         ArrayList<PeoplePopulation> regionPopulations = new ArrayList<>();
+
+        if (con == null) {
+            return regionPopulations;
+        }
 
         try {
             // Create a SQL statement

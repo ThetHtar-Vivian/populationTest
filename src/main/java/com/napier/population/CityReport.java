@@ -33,6 +33,11 @@ public class CityReport {
 
     public ArrayList<City> getAllCitiesByPopulation() {
         ArrayList<City> cities = new ArrayList<>();
+
+        if (con == null) {
+            return cities;
+        }
+
         try {
             Statement stmt = con.createStatement();
             String sql = "SELECT \n" +
@@ -76,6 +81,10 @@ public class CityReport {
     public ArrayList<City> getCitiesByContinentPopulationDesc() {
         // Create a list to store the retrieved City objects
         ArrayList<City> cities = new ArrayList<>();
+
+        if (con == null) {
+            return cities;
+        }
 
         try {
             // Create a SQL statement object to execute the query
@@ -127,6 +136,10 @@ public class CityReport {
      */
     public ArrayList<City> getTop50CitiesByPopulation() {
         ArrayList<City> cities = new ArrayList<>();
+
+        if (con == null) {
+            return cities;
+        }
 
         try {
             // Create a statement object to execute the SQL query
@@ -183,6 +196,10 @@ public class CityReport {
     public ArrayList<City> getTop10CitiesByContinentPopulation() {
         ArrayList<City> cities = new ArrayList<>();
 
+        if (con == null) {
+            return cities;
+        }
+
         try {
             // Create a statement to execute SQL query
             Statement stmt = con.createStatement();
@@ -235,6 +252,10 @@ public class CityReport {
      */
     public ArrayList<City> getTop5CitiesByRegionPopulation() {
         ArrayList<City> cities = new ArrayList<>();
+
+        if (con == null) {
+            return cities;
+        }
 
         try {
             Statement stmt = con.createStatement();
@@ -296,6 +317,10 @@ public class CityReport {
     public ArrayList<City> getAllCitiesByRegionPopulationDesc() {
         ArrayList<City> cities = new ArrayList<>();
 
+        if (con == null) {
+            return cities;
+        }
+
         try {
             Statement stmt = con.createStatement();
 
@@ -340,6 +365,10 @@ public class CityReport {
     public ArrayList<City> getAllCitiesByCountryPopulationDesc() {
         ArrayList<City> cities = new ArrayList<>();
 
+        if (con == null) {
+            return cities;
+        }
+
         try {
             Statement stmt = con.createStatement();
 
@@ -383,6 +412,10 @@ public class CityReport {
     public ArrayList<City> getCitiesByDistrictPopulationDesc() {
         // Create a list to store the retrieved City objects
         ArrayList<City> cities = new ArrayList<>();
+
+        if (con == null) {
+            return cities;
+        }
 
         try {
             // Create a SQL statement object to execute the query
@@ -435,6 +468,10 @@ public class CityReport {
     public ArrayList<City> getTop5CitiesByCountryPopulation() {
         ArrayList<City> cities = new ArrayList<>();
 
+        if (con == null) {
+            return cities;
+        }
+
         String sql =
                 "SELECT CityName, CountryName, District, Region, Continent, Population " +
                         "FROM ( " +
@@ -479,6 +516,10 @@ public class CityReport {
     public ArrayList<City> getTopCityByDistrictPopulation() {
         // List to store the top cities for each district
         ArrayList<City> cities = new ArrayList<>();
+
+        if (con == null) {
+            return cities;
+        }
 
         try {
             // Create a SQL statement

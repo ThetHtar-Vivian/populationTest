@@ -36,6 +36,10 @@ public class CapitalCityReport {
         // List to store the top 50 capital cities
         ArrayList<City> capitals = new ArrayList<>();
 
+        if (con == null) {
+            return capitals;
+        }
+
         try {
             // Create a SQL statement
             Statement stmt = con.createStatement();
@@ -86,6 +90,10 @@ public class CapitalCityReport {
     public ArrayList<City> getAllCapitalCitiesByContinentPopulationDesc() {
         ArrayList<City> capitals = new ArrayList<>();
 
+        if (con == null) {
+            return capitals;
+        }
+
         try {
             Statement stmt = con.createStatement();
 
@@ -132,6 +140,10 @@ public class CapitalCityReport {
      */
     public ArrayList<City> getTop5CapitalCitiesByRegion() {
         ArrayList<City> capitals = new ArrayList<>();
+
+        if (con == null) {
+            return capitals;
+        }
 
         try {
             Statement stmt = con.createStatement();
@@ -183,6 +195,10 @@ public class CapitalCityReport {
     public ArrayList<City> getAllCapitalCitiesByRegionPopulationDesc() {
         ArrayList<City> capitals = new ArrayList<>();
 
+        if (con == null) {
+            return capitals;
+        }
+
         try {
             Statement stmt = con.createStatement();
 
@@ -232,6 +248,10 @@ public class CapitalCityReport {
         // List to store all capital cities
         ArrayList<City> capitals = new ArrayList<>();
 
+        if (con == null) {
+            return capitals;
+        }
+
         try {
             // Create a SQL statement
             Statement stmt = con.createStatement();
@@ -279,6 +299,10 @@ public class CapitalCityReport {
      */
     public ArrayList<City> getTop10CapitalCitiesByContinentPopulation() {
         ArrayList<City> capitals = new ArrayList<>();
+
+        if (con == null) {
+            return capitals;
+        }
 
         try {
             Statement stmt = con.createStatement();

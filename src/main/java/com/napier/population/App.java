@@ -16,11 +16,12 @@ public class App {
         DbConnection db = new DbConnection();
 
         // Establish connection to the database
-        Connection con = db.connect(
-                "jdbc:mysql://db:3306/world?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",
-                "root",
-                "abc123!@#"
-        );
+        Connection con;
+        if(args.length < 1){
+            con = db.connect("localhost:33060", 30000);
+        } else {
+            con = db.connect(args[0], Integer.parseInt(args[1]));
+        }
 
         // Initialize ReportManager with the database connection
         ReportManager manager = new ReportManager(con);
