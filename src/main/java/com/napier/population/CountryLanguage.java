@@ -6,42 +6,35 @@ package com.napier.population;
  */
 public class CountryLanguage {
 
-    private String country_code;
+    // Core attributes from the Language table
     private String language;
-    private String is_official;
     private double percentage;
 
-    // ----------------- Getters and Setters -----------------
+    // Extra fields for reporting
+    private double world_percentage;
 
-    public String getCountry_code() {
-        return country_code;
-    }
-
-    public void setCountry_code(String country_code) {
-        this.country_code = country_code;
+    /**
+     * Parameterized constructor for creating a fully initialized CountryLanguage object.
+     *
+     * @param language         Name of the language
+     * @param percentage       Percentage of people who speak this language
+     * @param world_percentage Percentage of world population who speak this language
+     */
+    public CountryLanguage(String language,double percentage, double world_percentage) {
+        this.language = language;
+        this.percentage = percentage;
+        this.world_percentage = world_percentage;
     }
 
     public String getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
     public double getPercentage() {
         return percentage;
     }
 
-    public void setPercentage(double percentage) {
-        this.percentage = percentage;
-    }
-
-    public String getIs_official() {
-        return is_official;
-    }
-
-    public void setIs_official(String is_official) {
-        this.is_official = is_official;
+    public double getWorld_percentage() {
+        return world_percentage;
     }
 }
