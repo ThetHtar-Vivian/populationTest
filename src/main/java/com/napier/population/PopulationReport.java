@@ -264,10 +264,14 @@ public class PopulationReport {
             // SQL query to calculate continent-level populations
             String sql = "SELECT c.Continent AS name, " +
                     "SUM(c.Population) AS totalPopulation, " +
-                    "SUM(ci.Population) AS cityPopulation, " +
-                    "(SUM(c.Population) - SUM(ci.Population)) AS nonCityPopulation " +
+                    "SUM(ci.cityPopulation) AS cityPopulation, " +
+                    "SUM(c.Population - IFNULL(ci.cityPopulation, 0)) AS nonCityPopulation " +
                     "FROM country c " +
-                    "LEFT JOIN city ci ON ci.CountryCode = c.Code " +
+                    "LEFT JOIN ( " +
+                    "    SELECT CountryCode, SUM(Population) AS cityPopulation " +
+                    "    FROM city " +
+                    "    GROUP BY CountryCode " +
+                    ") ci ON ci.CountryCode = c.Code " +
                     "GROUP BY c.Continent";
 
             // Execute query and store result set
@@ -359,15 +363,14 @@ public class PopulationReport {
             // SQL query to calculate total speakers and world percentage for selected languages
             String sql = "SELECT " +
                     "cl.Language AS language, " +
-                    "SUM(c.Population * (cl.Percentage / 100)) AS totalSpeakers, " +
-                    "ROUND(SUM(c.Population * (cl.Percentage / 100)) / " +
+                    "ROUND(SUM(ROUND(c.Population * (cl.Percentage / 100))), 0) AS totalSpeakers, " +
+                    "ROUND(SUM(ROUND(c.Population * (cl.Percentage / 100))) / " +
                     "(SELECT SUM(Population) FROM country) * 100, 2) AS worldPercentage " +
                     "FROM countrylanguage cl " +
                     "JOIN country c ON cl.CountryCode = c.Code " +
                     "WHERE cl.Language IN ('Chinese', 'English', 'Hindi', 'Spanish', 'Arabic') " +
                     "GROUP BY cl.Language " +
-                    "ORDER BY totalSpeakers DESC;";
-
+                    "ORDER BY totalSpeakers DESC";
             // Execute the SQL query and obtain results
             ResultSet rset = stmt.executeQuery(sql);
 
@@ -421,10 +424,15 @@ public class PopulationReport {
             // - Groups results by region
             String sql = "SELECT co.Region AS RegionName, " +
                     "SUM(co.Population) AS TotalPopulation, " +
-                    "SUM(ci.Population) AS CityPopulation " +
+                    "SUM(ci.CityPopulation) AS CityPopulation, " +
+                    "SUM(co.Population - IFNULL(ci.CityPopulation, 0)) AS NonCityPopulation " +
                     "FROM country co " +
-                    "LEFT JOIN city ci ON ci.CountryCode = co.Code " +
-                    "GROUP BY co.Region;";
+                    "LEFT JOIN ( " +
+                    "    SELECT CountryCode, SUM(Population) AS CityPopulation " +
+                    "    FROM city " +
+                    "    GROUP BY CountryCode " +
+                    ") ci ON ci.CountryCode = co.Code " +
+                    "GROUP BY co.Region";
 
             // Execute the query
             ResultSet rset = stmt.executeQuery(sql);
