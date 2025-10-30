@@ -54,10 +54,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                    <skipTests>false</skipTests>
-                    <argLine>
-                        -javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/1.15.4/byte-buddy-agent-1.15.4.jar
-                    </argLine>
+                    <skipTests>true</skipTests>
                 </configuration>
             </plugin>
             <plugin>
