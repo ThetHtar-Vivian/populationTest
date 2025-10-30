@@ -28,7 +28,7 @@ public class City {
      * @param region        Region within the continent
      */
     public City(String name,
-                String country_name, String region, String district, String continent, int population) {
+                String country_name, String district, String region, String continent, int population) {
         this.name = name;
         this.country_name = country_name;
         this.district = district;
