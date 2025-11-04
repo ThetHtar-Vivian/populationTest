@@ -1,6 +1,7 @@
 package com.napier.population;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,21 +11,14 @@ import java.util.ArrayList;
  * Each method is responsible for printing a specific type of report.
  */
 public class Display {
-
-    private String fileName;
-
-    public Display(String fileName) {
-        this.fileName = fileName;
-    }
-
     /**
      * Prints a country report in a formatted table.
      * Displays: code, name, capital, district, region, continent, and population.
      *
      * @param countries List of countries to display
-     * @param title     name of the report
+     * @param fileName  name of the file
      */
-    public int writeCountryReportToFile(ArrayList<Country> countries, String title) {
+    public int writeCountryReportToFile(ArrayList<Country> countries, String fileName) {
         if (countries == null || countries.isEmpty()) {
             return 0;
         }
@@ -33,7 +27,6 @@ public class Display {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(title + "\n");
         sb.append("| Code | Country Name | Capital | District | Region | Continent | Population |\r\n");
         sb.append("| --- | --- | --- | --- | --- | --- | --- |\r\n");
 
@@ -54,8 +47,11 @@ public class Display {
             index++;
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new                                 File("./reports/" + fileName)));
             writer.write(sb.toString());
+            writer.close();
         } catch (IOException e) {
             System.out.println("Error writing country report: " + e.getMessage());
         }
@@ -66,10 +62,10 @@ public class Display {
      * Prints a city report in a formatted table.
      * Displays: city name, country, district, region, continent, and population.
      *
-     * @param cities List of cities to display
-     * @param title  name of the report
+     * @param cities    List of cities to display
+     * @param fileName  name of the file
      */
-    public int writeCityReportToFile(ArrayList<City> cities, String title) {
+    public int writeCityReportToFile(ArrayList<City> cities, String fileName) {
         if (cities == null || cities.isEmpty()) {
             return 0;
         }
@@ -78,7 +74,6 @@ public class Display {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(title + "\n");
         sb.append("| ID | City | Country | District | Region | Continent | Population |\r\n");
         sb.append("| --- | --- | --- | --- | --- | --- | --- |\r\n");
 
@@ -100,8 +95,11 @@ public class Display {
             index++;
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new                                 File("./reports/" + fileName)));
             writer.write(sb.toString());
+            writer.close();
         } catch (IOException e) {
             System.out.println("Error writing city report: " + e.getMessage());
         }
@@ -112,10 +110,10 @@ public class Display {
      * Prints a capital city report in a formatted table.
      * Displays: capital city name, country, region, continent, and population.
      *
-     * @param capitals List of capital cities to display
-     * @param title    name of the report
+     * @param capitals    List of capital cities to display
+     * @param fileName    name of the file
      */
-    public int writeCapitalCityReportToFile(ArrayList<City> capitals, String title) {
+    public int writeCapitalCityReportToFile(ArrayList<City> capitals, String fileName) {
         if (capitals == null || capitals.isEmpty()) {
             return 0;
         }
@@ -124,7 +122,6 @@ public class Display {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(title + "\n");
         sb.append("| ID | City | Country | Region | Continent | Population |\r\n");
         sb.append("| --- | --- | --- | --- | --- | --- |\r\n");
 
@@ -145,8 +142,11 @@ public class Display {
             index++;
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new                                 File("./reports/" + fileName)));
             writer.write(sb.toString());
+            writer.close();
         } catch (IOException e) {
             System.out.println("Error writing capital city report: " + e.getMessage());
         }
@@ -160,7 +160,7 @@ public class Display {
      * @param peoplePopulations List of population objects to display
      * @param level             Label describing the report level (e.g., "World", "Continent", "Country")
      */
-    public int writePopulationReportToFile(ArrayList<PeoplePopulation> peoplePopulations, String level) {
+    public int writePopulationReportToFile(ArrayList<PeoplePopulation> peoplePopulations, String level, String fileName) {
         if (peoplePopulations == null || peoplePopulations.isEmpty()) {
             return 0;
         }
@@ -169,7 +169,6 @@ public class Display {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(level + " Population Report" + "\n");
         sb.append("| " + level + " | Total Population | City Population (% of total) | Non-City Population (% of total) |\r\n");
         sb.append("| --- | --- | --- | --- |\r\n");
 
@@ -187,8 +186,11 @@ public class Display {
             index++;
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new                                 File("./reports/" + fileName)));
             writer.write(sb.toString());
+            writer.close();
         } catch (IOException e) {
             System.out.println("Error writing population report: " + e.getMessage());
         }
@@ -202,7 +204,7 @@ public class Display {
      * @param peoplePopulations A list of PeoplePopulation objects containing population data.
      * @param level             The population level being reported (e.g., "World", "Continent", or "Region").
      */
-    public int writeOverallPopulationReportToFile(ArrayList<PeoplePopulation> peoplePopulations, String level) {
+    public int writeOverallPopulationReportToFile(ArrayList<PeoplePopulation> peoplePopulations, String level, String fileName) {
         if (peoplePopulations == null || peoplePopulations.isEmpty()) {
             return 0;
         }
@@ -211,7 +213,6 @@ public class Display {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(level + " Total Population Report" + "\n");
         sb.append("| " + level + " | Total Population |\r\n");
         sb.append("| --- | --- |\r\n");
 
@@ -226,8 +227,11 @@ public class Display {
             index++;
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new                                 File("./reports/" + fileName)));
             writer.write(sb.toString());
+            writer.close();
         } catch (IOException e) {
             System.out.println("Error population report: " + e.getMessage());
         }
@@ -239,10 +243,10 @@ public class Display {
      * Each entry shows the language name, total number of speakers, and
      * its percentage of the total world population.
      *
-     * @param languages A list of CountryLanguage objects containing language statistics.
-     * @param title     The report title (e.g., "Top 5 Languages by Total Speakers").
+     * @param languages     A list of CountryLanguage objects containing language statistics.
+     * @param fileName      The report file
      */
-    public int writeLanguageReportToFile(ArrayList<CountryLanguage> languages, String title) {
+    public int writeLanguageReportToFile(ArrayList<CountryLanguage> languages, String fileName) {
         if (languages == null || languages.isEmpty()) {
             return 0;
         }
@@ -251,7 +255,6 @@ public class Display {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(title+ "\n");
         sb.append("| Language | Total Speakers | World Percentage |\r\n");
         sb.append("| --- | --- | --- |\r\n");
 
@@ -268,25 +271,15 @@ public class Display {
             index++;
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new                                 File("./reports/" + fileName)));
             writer.write(sb.toString());
+            writer.close();
         } catch (IOException e) {
             // Handle file writing errors gracefully
             System.out.println("Error writing language report: " + e.getMessage());
         }
         return index;
-    }
-
-    /**
-     * Optional: Clear previous reports before writing new ones
-     */
-    public int clearReportFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            writer.write(""); // overwrite with empty content
-            return 1;
-        } catch (IOException e) {
-            System.out.println("Error clearing report file: " + e.getMessage());
-        }
-        return 0;
     }
 }
