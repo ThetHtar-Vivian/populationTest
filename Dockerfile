@@ -1,12 +1,6 @@
-FROM openjdk:17
-
-WORKDIR /app
+FROM eclipse-temurin:17-jdk
 
 # Copy fat jar (whatever its name is)
-COPY target/*-jar-with-dependencies.jar /app/app.jar
-
-# Create a folder for report output
-RUN mkdir -p /app/reports
-
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar", "db:3306", "30000"]
+COPY ./target/PopulationTest.jar /tmp
+WORKDIR /tmp
+ENTRYPOINT ["java", "-jar", "PopulationTest.jar", "db:3306", "10000"]
