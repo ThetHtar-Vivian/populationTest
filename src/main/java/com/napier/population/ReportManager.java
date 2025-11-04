@@ -23,7 +23,7 @@ public class ReportManager {
      */
     public ReportManager(Connection con) {
         this.con = con;
-        this.display = new Display("reports/PopulationReports.txt");
+        this.display = new Display("reports/PopulationReports.md");
         display.clearReportFile();
     }
 
