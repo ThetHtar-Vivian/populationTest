@@ -1,0 +1,4 @@
+World Total Population Report
+| World | Total Population |
+| --- | --- |
+| World | 8000000000 |
