@@ -7,17 +7,20 @@ package com.napier.population;
  */
 public class PeoplePopulation {
 
-    private String level;
+    // Core attributes from the table
     private long totalPopulation;
     private long cityPopulation;
     private long nonCityPopulation;
+
+    // Extra fields for reporting
+    private String level;
     private double cityPopulationPercentage;
     private double nonCityPopulationPercentage;
 
     /**
      * Constructor to initialize population data.
      *
-     * @param level             Name of the level (e.g., "World", "Continent: Asia", "Country: France")
+     * @param level             Name of the level (e.g., "World", "Continent", "Country")
      * @param totalPopulation   Total population
      * @param cityPopulation    Population living in cities
      * @param nonCityPopulation Population not living in cities
@@ -38,89 +41,38 @@ public class PeoplePopulation {
         }
     }
 
-    // Getters and setters
-
     /**
-     * @return the level of aggregation (World, Continent, Region, Country)
+     * Constructs a PeoplePopulation object with only the total population data.
+     *
+     * @param level             the aggregation level
+     * @param totalPopulation   the total population for this level
      */
-    public String getLevel() {
-        return level;
-    }
-
-    /**
-     * @param level sets the aggregation level
-     */
-    public void setLevel(String level) {
+    public PeoplePopulation(String level, long totalPopulation) {
         this.level = level;
+        this.totalPopulation = totalPopulation;
     }
 
-    /**
-     * @return the total population
-     */
     public long getTotalPopulation() {
         return totalPopulation;
     }
 
-    /**
-     * @param totalPopulation sets the total population
-     */
-    public void setTotalPopulation(long totalPopulation) {
-        this.totalPopulation = totalPopulation;
-    }
-
-    /**
-     * @return the city population
-     */
     public long getCityPopulation() {
         return cityPopulation;
     }
 
-    /**
-     * @param cityPopulation sets the city population
-     */
-    public void setCityPopulation(long cityPopulation) {
-        this.cityPopulation = cityPopulation;
-    }
-
-    /**
-     * @return the non-city (rural) population
-     */
     public long getNonCityPopulation() {
         return nonCityPopulation;
     }
 
-    /**
-     * @param nonCityPopulation sets the non-city (rural) population
-     */
-    public void setNonCityPopulation(long nonCityPopulation) {
-        this.nonCityPopulation = nonCityPopulation;
+    public String getLevel() {
+        return level;
     }
 
-    /**
-     * @return percentage of population living in cities
-     */
     public double getCityPopulationPercentage() {
         return cityPopulationPercentage;
     }
 
-    /**
-     * @param cityPopulationPercentage sets percentage of city population
-     */
-    public void setCityPopulationPercentage(double cityPopulationPercentage) {
-        this.cityPopulationPercentage = cityPopulationPercentage;
-    }
-
-    /**
-     * @return percentage of population not living in cities
-     */
     public double getNonCityPopulationPercentage() {
         return nonCityPopulationPercentage;
-    }
-
-    /**
-     * @param nonCityPopulationPercentage sets percentage of non-city population
-     */
-    public void setNonCityPopulationPercentage(double nonCityPopulationPercentage) {
-        this.nonCityPopulationPercentage = nonCityPopulationPercentage;
     }
 }
