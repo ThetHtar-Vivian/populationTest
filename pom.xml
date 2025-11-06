@@ -37,13 +37,47 @@
 
     <build>
         <plugins>
+            <!-- Jacoco plugin -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.13</version>
+                <executions>
+                    <!-- Prepare agent before running tests -->
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <!-- Generate report after tests -->
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Surefire plugin to run tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <!-- Remove skipTests, or explicitly allow tests to run -->
+                    <skipTests>false</skipTests>
+                </configuration>
+            </plugin>
+
+            <!-- Jar and assembly plugins remain unchanged -->
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.4.2</version>
                 <executions>
                     <execution>
                         <id>default-jar</id>
-                        <!-- skip building the default-jar-->
                         <phase>none</phase>
                     </execution>
                 </executions>
@@ -71,35 +105,6 @@
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.13</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>
