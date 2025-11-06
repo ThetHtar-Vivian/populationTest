@@ -9,4 +9,4 @@
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/ThetHtar-Vivian/populationTest/main.yml?branch=develop&style=flat-square)
 
 
-[![codecov](https://codecov.io/github/Aung-Paing-Khant/populationTest/graph/badge.svg?token=87ADYFXBFT)](https://codecov.io/github/Aung-Paing-Khant/populationTest)
+[![codecov](https://codecov.io/gh/ThetHtar-Vivian/populationTest/graph/badge.svg?token=XGJQ147CYU)](https://codecov.io/gh/ThetHtar-Vivian/populationTest)
