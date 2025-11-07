@@ -477,7 +477,7 @@ public class CityReport {
         String sql =
                 "SELECT City, Country, District, Region, Continent, Population " +
                         "FROM ( " +
-                        "  SELECT city.Name AS City, " +
+                        "  SELECT city.Name AS CityName, " +
                         "         country.Name AS Country, " +
                         "         city.District, " +
                         "         country.Region, " +
