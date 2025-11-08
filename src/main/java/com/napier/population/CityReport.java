@@ -477,7 +477,7 @@ public class CityReport {
         String sql =
                 "SELECT City, Country, District, Region, Continent, Population " +
                         "FROM ( " +
-                        "  SELECT city.Name AS CityName, " +
+                        "  SELECT city.Name AS City, " +
                         "         country.Name AS Country, " +
                         "         city.District, " +
                         "         country.Region, " +
@@ -495,8 +495,8 @@ public class CityReport {
 
             while (rset.next()) {
                 City city = new City(
-                        rset.getString("CityName"),     // Set city name
-                        rset.getString("CountryName"),  // Set country name
+                        rset.getString("City"),     // Set city name
+                        rset.getString("Country"),  // Set country name
                         rset.getString("District"),     // Set district
                         rset.getString("Region"),       // Set region
                         rset.getString("Continent"),    // Set continent
