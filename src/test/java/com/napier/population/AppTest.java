@@ -16,7 +16,7 @@ class AppTest {
     @BeforeEach
     void setUp() {
         db = new DbConnection();// Establish connection to the database
-        con = db.connect("3306:3306", 10000);
+        con = db.connect("localhost:33060", 10000);
         report = new PopulationReport(con);
     }
 

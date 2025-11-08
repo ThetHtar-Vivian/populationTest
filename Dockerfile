@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:24-jdk
 
 # Copy fat jar (whatever its name is)
 COPY ./target/PopulationTest.jar /tmp
