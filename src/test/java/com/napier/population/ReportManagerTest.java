@@ -16,7 +16,7 @@ class ReportManagerTest {
     @BeforeEach
     void setUp() {
         db = new DbConnection();// Establish connection to the database
-        connection = db.connect("localhost:33060", 10000);
+        connection = db.connect("3306:3306", 10000);
         manager = new ReportManager(connection);
     }
 

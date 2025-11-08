@@ -9,4 +9,4 @@
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/ThetHtar-Vivian/populationTest/main.yml?branch=develop&style=flat-square)
 
 
-[![codecov](https://codecov.io/gh/ThetHtar-Vivian/populationTest/graph/badge.svg?token=XGJQ147CYU)](https://codecov.io/gh/ThetHtar-Vivian/populationTest)
+[![codecov](https://codecov.io/gh/ThetHtar-Vivian/populationTest/graph/badge.svg?token=1Y2F2HZRFX)](https://codecov.io/gh/ThetHtar-Vivian/populationTest)
