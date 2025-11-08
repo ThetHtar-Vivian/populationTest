@@ -18,7 +18,7 @@ public class App {
         // Establish connection to the database
         Connection con;
         if(args.length < 1){
-            con = db.connect("localhost:33060", 30000);
+            con = db.connect("3306:3306", 30000);
         } else {
             con = db.connect(args[0], Integer.parseInt(args[1]));
         }
