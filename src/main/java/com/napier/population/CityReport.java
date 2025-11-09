@@ -475,28 +475,28 @@ public class CityReport {
         }
 
         String sql =
-                "SELECT City, Country, District, Region, Continent, Population " +
+                "SELECT CityName, CountryName, District, Region, Continent, Population " +
                         "FROM ( " +
-                        "  SELECT city.Name AS City, " +
-                        "         country.Name AS Country, " +
-                        "         city.District, " +
-                        "         country.Region, " +
-                        "         country.Continent, " +
-                        "         city.Population, " +
-                        "         ROW_NUMBER() OVER (PARTITION BY country.Code ORDER BY city.Population DESC) AS rn " +
-                        "  FROM city " +
-                        "  JOIN country ON city.CountryCode = country.Code " +
-                        ") AS ranked " +
+                        "    SELECT c.Name AS CityName, " +
+                        "           co.Name AS CountryName, " +
+                        "           c.District, " +
+                        "           co.Region, " +
+                        "           co.Continent, " +
+                        "           c.Population, " +
+                        "           ROW_NUMBER() OVER (PARTITION BY co.Code ORDER BY c.Population DESC) AS rn " +
+                        "    FROM city c " +
+                        "    JOIN country co ON c.CountryCode = co.Code " +
+                        ") sub " +
                         "WHERE rn <= 5 " +
-                        "ORDER BY Country, Population DESC;";
+                        "ORDER BY CountryName, Population DESC;";
 
         try (Statement stmt = con.createStatement();
              ResultSet rset = stmt.executeQuery(sql)) {
 
             while (rset.next()) {
                 City city = new City(
-                        rset.getString("City"),     // Set city name
-                        rset.getString("Country"),  // Set country name
+                        rset.getString("CityName"),     // Set city name
+                        rset.getString("CountryName"),  // Set country name
                         rset.getString("District"),     // Set district
                         rset.getString("Region"),       // Set region
                         rset.getString("Continent"),    // Set continent
