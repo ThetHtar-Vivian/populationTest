@@ -24,7 +24,7 @@ jobs:
           java-version: '24'
           distribution: 'temurin'
       - name: Unit Tests
-        run: mvn -Dtest="com.napier.population.DisplayTest, com.napier.population.ReportWithNullTest, com.napier.population.CapitalCityReport, com.napier.population.CityReport, com.napier.population.CountryReport, com.napier.population.DbConnection, com.napier.population.PopulationReport" test
+        run: mvn test
       - name: CodeCov
         uses: codecov/codecov-action@v5
         with:
@@ -50,7 +50,7 @@ jobs:
       - name: Integration Tests
         run: |
           docker compose up -d db
-          mvn -Dtest="com.napier.population.ReportManagerTest, com.napier.population.CapitalCityReport, com.napier.population.CityReport, com.napier.population.CountryReport, com.napier.population.DbConnection, com.napier.population.PopulationReport" test
+          mvn test
       - name: Shutdown
         run: docker compose down
       - name: CodeCov
