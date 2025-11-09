@@ -56,6 +56,7 @@ class DbConnectionTest {
         DbConnection db = new DbConnection();
         db.connect("localhost:33060", 10000, "com.mysql.cj.jdbc.Driver");
         int check = db.disconnect();
+
         assertEquals(1, check);
     }
 
