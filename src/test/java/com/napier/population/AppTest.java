@@ -16,7 +16,7 @@ class AppTest {
     @BeforeEach
     void setUp() {
         db = new DbConnection();// Establish connection to the database
-        con = db.connect("localhost:33060", 10000);
+        con = db.connect("localhost:33060", 10000, "com.mysql.cj.jdbc.Driver");
         report = new PopulationReport(con);
     }
 
