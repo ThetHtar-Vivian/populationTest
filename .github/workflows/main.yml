@@ -24,7 +24,7 @@ jobs:
           java-version: '24'
           distribution: 'temurin'
       - name: Unit Tests
-        run: mvn -Dtest="com.napier.population.DisplayTest, com.napier.population.ReportWithNullTest" test
+        run: mvn -Dtest="com.napier.population.DisplayTest, com.napier.population.ReportWithNullTest, com.napier.population.CapitalCityReport, com.napier.population.CityReport, com.napier.population.CountryReport, com.napier.population.DbConnection, com.napier.population.PopulationReport" test
       - name: CodeCov
         uses: codecov/codecov-action@v5
         with:
