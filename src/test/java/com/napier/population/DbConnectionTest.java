@@ -1,7 +1,5 @@
 package com.napier.population;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -19,27 +17,31 @@ class DbConnectionTest {
     void testConnectSuccess() {
         DbConnection db = new DbConnection();
         Connection con = db.connect("localhost:33060", 10000, "com.mysql.cj.jdbc.Driver");
-        assertNotNull(con);
+        assertNotNull(con, "Expected non-null connection for valid parameters");
     }
 
     @Test
     void testConnectFailure() {
         DbConnection db = new DbConnection();
         Connection con = db.connect("invalid:3306", 0, "com.mysql.cj.jdbc.Driver");
-        assertNull(con); // after 10 failed attempts
+        assertNull(con, "Expected null connection after failed attempts with invalid host");
     }
 
     @Test
     void testDriverClassNotFound() {
         DbConnection db = new DbConnection();
 
-        RuntimeException ex = assertThrows(RuntimeException.class, () -> {
-            db.connect("localhost:33060", 0, "invalid.DriverClass");
-        });
-
-        assertTrue(ex.getCause() instanceof ClassNotFoundException);
+        assertThrows(RuntimeException.class, () -> {
+            try {
+                db.connect("localhost:33060", 0, "invalid.DriverClass");
+            } catch (RuntimeException ex) {
+                if (!(ex.getCause() instanceof ClassNotFoundException)) {
+                    throw new AssertionError("Expected cause to be ClassNotFoundException", ex);
+                }
+                throw ex; // rethrow to satisfy assertThrows
+            }
+        }, "Expected RuntimeException when driver class is not found");
     }
-
 
     @Test
     void testInterruptedDuringSleep() {
@@ -47,8 +49,7 @@ class DbConnectionTest {
         Thread.currentThread().interrupt(); // force interruption
 
         Connection con = db.connect("invalid:3306", 1000, "com.mysql.cj.jdbc.Driver");
-        // interruption does not kill test, but covers the catch block
-        assertNull(con);
+        assertNull(con, "Expected null connection if thread is interrupted during retry sleep");
     }
 
     @Test
@@ -57,13 +58,13 @@ class DbConnectionTest {
         db.connect("localhost:33060", 10000, "com.mysql.cj.jdbc.Driver");
         int check = db.disconnect();
 
-        assertEquals(1, check);
+        assertEquals(1, check, "Expected disconnect to return 1 for successful close");
     }
 
     @Test
     void testDisconnectWhenNull() {
         DbConnection db = new DbConnection();
-        assertEquals(0, db.disconnect());
+        assertEquals(0, db.disconnect(), "Expected disconnect to return 0 if connection is null");
     }
 
     @Test
@@ -85,7 +86,7 @@ class DbConnectionTest {
         // Call disconnect() → should hit catch block and return 0
         int result = db.disconnect();
 
-        assertEquals(0, result);
+        assertEquals(0, result, "Expected disconnect to return 0 if close() throws exception");
     }
 
 }

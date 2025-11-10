@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handles generating country-related reports from the database.
@@ -35,8 +36,8 @@ public class CountryReport {
      * Uses capital city's district for the report.
      * @return List of Country objects containing code, name, capital, district, region, continent, and population.
      */
-    public ArrayList<Country> getCountriesByContinentPopulationDesc() {
-        ArrayList<Country> countries = new ArrayList<>();
+    public List<Country> getCountriesByContinentPopulationDesc() {
+        List<Country> countries = new ArrayList<>();
 
         if (con == null) {
             return countries;
@@ -80,9 +81,9 @@ public class CountryReport {
      * country and city tables to include capital city details.
      * @return ArrayList of Country objects sorted in descending order by population.
      */
-    public ArrayList<Country> getAllCountriesByPopulationDesc() {
+    public List<Country> getAllCountriesByPopulationDesc() {
         // Create a list to hold all countries retrieved from the database
-        ArrayList<Country> countries = new ArrayList<>();
+        List<Country> countries = new ArrayList<>();
 
         if (con == null) {
             return countries;
@@ -140,9 +141,9 @@ public class CountryReport {
      * @return ArrayList of Country objects containing the top 10 populated countries per continent,
      * ordered by continent and population in descending order.
      */
-    public ArrayList<Country> getTop10CountriesByContinentPopulation() {
+    public List<Country> getTop10CountriesByContinentPopulation() {
         // Create a list to store the resulting countries
-        ArrayList<Country> countries = new ArrayList<>();
+        List<Country> countries = new ArrayList<>();
 
         if (con == null) {
             return countries;
@@ -206,9 +207,9 @@ public class CountryReport {
      *
      * @return An ArrayList of Country objects representing the top 50 most populated countries.
      */
-    public ArrayList<Country> getTop50CountriesByPopulation() {
+    public List<Country> getTop50CountriesByPopulation() {
         // Create a list to store the retrieved Country objects
-        ArrayList<Country> countries = new ArrayList<>();
+        List<Country> countries = new ArrayList<>();
 
         if (con == null) {
             return countries;
@@ -258,8 +259,8 @@ public class CountryReport {
      * Uses capital city's name for the report.
      * @return A list of countries ordered by region and population
      */
-    public ArrayList<Country> getCountriesByRegionPopulationDesc() {
-        ArrayList<Country> countries = new ArrayList<>();
+    public List<Country> getCountriesByRegionPopulationDesc() {
+        List<Country> countries = new ArrayList<>();
 
         if (con == null) {
             return countries;
@@ -307,8 +308,8 @@ public class CountryReport {
      *
      * @return List of Country objects containing code, name, capital, district, region, continent, and population
      */
-    public ArrayList<Country> getTop5CountriesPerRegion() {
-        ArrayList<Country> countries = new ArrayList<>();
+    public List<Country> getTop5CountriesPerRegion() {
+        List<Country> countries = new ArrayList<>();
 
         if (con == null) {
             return countries;

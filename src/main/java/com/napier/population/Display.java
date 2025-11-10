@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handles displaying reports to the console in a tabular format.
@@ -22,7 +23,7 @@ public class Display {
      * @param countries List of countries to display
      * @param fileName  name of the file
      */
-    public int writeCountryReportToFile(ArrayList<Country> countries, String fileName) {
+    public int writeCountryReportToFile(List<Country> countries, String fileName) {
         if (countries == null || countries.isEmpty()) {
             return 0;
         }
@@ -69,7 +70,7 @@ public class Display {
      * @param cities    List of cities to display
      * @param fileName  name of the file
      */
-    public int writeCityReportToFile(ArrayList<City> cities, String fileName) {
+    public int writeCityReportToFile(List<City> cities, String fileName) {
         if (cities == null || cities.isEmpty()) {
             return 0;
         }
@@ -117,7 +118,7 @@ public class Display {
      * @param capitals    List of capital cities to display
      * @param fileName    name of the file
      */
-    public int writeCapitalCityReportToFile(ArrayList<City> capitals, String fileName) {
+    public int writeCapitalCityReportToFile(List<City> capitals, String fileName) {
         if (capitals == null || capitals.isEmpty()) {
             return 0;
         }
@@ -164,7 +165,7 @@ public class Display {
      * @param peoplePopulations List of population objects to display
      * @param level             Label describing the report level (e.g., "World", "Continent", "Country")
      */
-    public int writePopulationReportToFile(ArrayList<PeoplePopulation> peoplePopulations, String level, String fileName) {
+    public int writePopulationReportToFile(List<PeoplePopulation> peoplePopulations, String level, String fileName) {
         if (peoplePopulations == null || peoplePopulations.isEmpty()) {
             return 0;
         }
@@ -208,7 +209,7 @@ public class Display {
      * @param peoplePopulations A list of PeoplePopulation objects containing population data.
      * @param level             The population level being reported (e.g., "World", "Continent", or "Region").
      */
-    public int writeOverallPopulationReportToFile(ArrayList<PeoplePopulation> peoplePopulations, String level, String fileName) {
+    public int writeOverallPopulationReportToFile(List<PeoplePopulation> peoplePopulations, String level, String fileName) {
         if (peoplePopulations == null || peoplePopulations.isEmpty()) {
             return 0;
         }
@@ -250,7 +251,7 @@ public class Display {
      * @param languages     A list of CountryLanguage objects containing language statistics.
      * @param fileName      The report file
      */
-    public int writeLanguageReportToFile(ArrayList<CountryLanguage> languages, String fileName) {
+    public int writeLanguageReportToFile(List<CountryLanguage> languages, String fileName) {
         if (languages == null || languages.isEmpty()) {
             return 0;
         }
@@ -270,7 +271,7 @@ public class Display {
             sb.append(
                     "| " + lang.getLanguage() + " | " +
                     lang.getPercentage() + " | " +
-                    lang.getPercentage() + " |\r\n"
+                    lang.getWorld_percentage() + " |\r\n"
             );
             index++;
         }

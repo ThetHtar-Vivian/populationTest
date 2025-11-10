@@ -92,8 +92,8 @@ public class CapitalCityReport {
      *
      * @return a list of capital cities sorted by continent and descending population
      */
-    public ArrayList<City> getAllCapitalCitiesByContinentPopulationDesc() {
-        ArrayList<City> capitals = new ArrayList<>();
+    public List<City> getAllCapitalCitiesByContinentPopulationDesc() {
+        List<City> capitals = new ArrayList<>();
 
         if (con == null) {
             return capitals;
@@ -144,8 +144,8 @@ public class CapitalCityReport {
      *
      * @return List of City objects containing city name, country name, region, continent, and population.
      */
-    public ArrayList<City> getTop5CapitalCitiesByRegion() {
-        ArrayList<City> capitals = new ArrayList<>();
+    public List<City> getTop5CapitalCitiesByRegion() {
+        List<City> capitals = new ArrayList<>();
 
         if (con == null) {
             return capitals;
@@ -198,8 +198,8 @@ public class CapitalCityReport {
      *
      * @return A list of City objects representing capital cities in each region, sorted by population.
      */
-    public ArrayList<City> getAllCapitalCitiesByRegionPopulationDesc() {
-        ArrayList<City> capitals = new ArrayList<>();
+    public List<City> getAllCapitalCitiesByRegionPopulationDesc() {
+        List<City> capitals = new ArrayList<>();
 
         if (con == null) {
             return capitals;
@@ -249,9 +249,9 @@ public class CapitalCityReport {
      *
      * @return A list of City objects containing all capital cities ordered by population descending.
      */
-    public ArrayList<City> getAllCapitalCitiesByPopulationDesc() {
+    public List<City> getAllCapitalCitiesByPopulationDesc() {
         // List to store all capital cities
-        ArrayList<City> capitals = new ArrayList<>();
+        List<City> capitals = new ArrayList<>();
 
         if (con == null) {
             return capitals;
@@ -302,8 +302,8 @@ public class CapitalCityReport {
      *
      * @return A list of City objects containing top 10 capitals per continent ordered by continent and population.
      */
-    public ArrayList<City> getTop10CapitalCitiesByContinentPopulation() {
-        ArrayList<City> capitals = new ArrayList<>();
+    public List<City> getTop10CapitalCitiesByContinentPopulation() {
+        List<City> capitals = new ArrayList<>();
 
         if (con == null) {
             return capitals;
