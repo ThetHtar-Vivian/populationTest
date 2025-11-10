@@ -5,6 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Handles generating reports specifically for capital cities.
@@ -15,6 +19,7 @@ public class CapitalCityReport {
 
     // Active database connection used to query capital city information
     private Connection con;
+    Logger log = LoggerFactory.getLogger(CapitalCityReport.class);
 
     /**
      * Constructor initializes the CapitalCityReport with an active database connection.
@@ -32,9 +37,9 @@ public class CapitalCityReport {
      *
      * @return A list of City objects containing the top 50 capital cities by population.
      */
-    public ArrayList<City> getTop50CapitalCitiesByPopulation() {
+    public List<City> getTop50CapitalCitiesByPopulation() {
         // List to store the top 50 capital cities
-        ArrayList<City> capitals = new ArrayList<>();
+        List<City> capitals = new ArrayList<>();
 
         if (con == null) {
             return capitals;
@@ -74,7 +79,7 @@ public class CapitalCityReport {
 
         } catch (SQLException e) {
             // Handle any SQL errors
-            System.out.println("Failed to get top 50 capital cities by population: " + e.getMessage());
+            log.debug("Failed to get top 50 capital cities by population: ", e);
         }
 
         // Return the list of top 50 capital cities
@@ -124,7 +129,8 @@ public class CapitalCityReport {
             }
 
         } catch (SQLException e) {
-            System.out.println("Failed to get capital cities by continent population: " + e.getMessage());
+            // Handle any SQL errors
+            log.debug("Failed to get capital cities by continent population: ", e);
         }
 
         return capitals;
@@ -179,7 +185,7 @@ public class CapitalCityReport {
 
             stmt.close();
         } catch (SQLException e) {
-            System.out.println("Failed to get top 5 capital cities by region: " + e.getMessage());
+            log.debug("Failed to get top 5 capital cities by region: ", e);
         }
 
         return capitals;
@@ -232,7 +238,7 @@ public class CapitalCityReport {
             }
 
         } catch (SQLException e) {
-            System.out.println("Failed to get capital cities by region: " + e.getMessage());
+            log.debug("Failed to get capital cities by region: ", e);
         }
 
         return capitals;
@@ -285,7 +291,7 @@ public class CapitalCityReport {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.out.println("Failed to get all capital cities by population: " + e.getMessage());
+            log.debug("Failed to get capital cities by region: ", e);
         }
 
         return capitals;
@@ -336,7 +342,7 @@ public class CapitalCityReport {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.out.println("Failed to get top 10 capital cities by continent: " + e.getMessage());
+            log.debug("Failed to get top 10 capital cities by continent: ", e);
         }
 
         return capitals;

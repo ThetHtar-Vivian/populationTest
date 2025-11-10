@@ -1,6 +1,5 @@
 package com.napier.population;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,7 +43,11 @@ class CityReportTest {
      */
     private void prepareOneRowResultSet(String cityName, String countryName, String district,
                                         String region, String continent, int population) throws SQLException {
-        when(mockRs.next()).thenReturn(true).thenReturn(false);
+        if (!mockRs.next()) {
+            when(mockRs.next()).thenReturn(true).thenReturn(false);
+        } else {
+            when(mockRs.next()).thenReturn(false);
+        }
 
         // Map column names to their values exactly as used in CityReport
         lenient().when(mockRs.getString(anyString())).thenAnswer(invocation -> {

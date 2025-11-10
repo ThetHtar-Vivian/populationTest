@@ -1,5 +1,8 @@
 package com.napier.population;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +17,7 @@ public class PopulationReport {
 
     // Active database connection used to query capital city information
     private Connection con;
+    Logger log = LoggerFactory.getLogger(PopulationReport.class);
 
     /**
      * Constructor initializes the PopulationReport with a database connection.

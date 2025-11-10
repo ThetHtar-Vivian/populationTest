@@ -1,5 +1,8 @@
 package com.napier.population;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -14,6 +17,7 @@ public class DbConnection {
 
     // Active database connection used to execute queries
     private Connection con = null;
+    Logger log = LoggerFactory.getLogger(DbConnection.class);
 
     /**
      * Connects to the MySQL database.
@@ -25,13 +29,12 @@ public class DbConnection {
             // Load Database driver
             Class.forName(className);
         } catch (ClassNotFoundException e) {
-            System.out.println("Could not load SQL driver");
+            log.debug("Could not load SQL driver");
             throw new RuntimeException(e);
         }
 
         int retries = 10;
         for (int i = 0; i < retries; ++i) {
-            System.out.println("Connecting to database...");
             try {
                 // Wait a bit for db to start
                 Thread.sleep(delay);
@@ -40,14 +43,11 @@ public class DbConnection {
                         "jdbc:mysql://" + location + "/world?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",
                         "root",
                         "abc123!@#");
-
-                System.out.println("Successfully connected");
                 break;
             } catch (SQLException sqle) {
-                System.out.println("Failed to connect to database attempt " + Integer.toString(i));
-                System.out.println(sqle.getMessage());
+                log.debug("SQL Error", sqle);
             } catch (InterruptedException ie) {
-                System.out.println("Thread interrupted? Should not happen.");
+                log.debug("Thread interrupted? Should not happen.");
             }
         }
         return con;
@@ -63,7 +63,7 @@ public class DbConnection {
                 con.close();
                 return 1;
             } catch (Exception e) {
-                System.out.println("Error closing connection to database");
+                log.debug("Error closing connection to database", e);
             }
         }
         return 0;

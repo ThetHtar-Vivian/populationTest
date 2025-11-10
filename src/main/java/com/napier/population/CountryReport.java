@@ -1,5 +1,8 @@
 package com.napier.population;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +18,7 @@ public class CountryReport {
 
     // Active database connection used to query capital city information
     private Connection con;
+    Logger log = LoggerFactory.getLogger(CountryReport.class);
 
     /**
      * Constructor initializes the CountryReport with an active database connection.
@@ -64,7 +68,7 @@ public class CountryReport {
             }
 
         } catch (SQLException e) {
-            System.out.println("Failed to get countries by continent population: " + e.getMessage());
+            log.debug("Failed to get countries by continent population: ", e);
         }
 
         return countries;
@@ -119,7 +123,7 @@ public class CountryReport {
             }
         } catch (SQLException e) {
             // Handle SQL exceptions and log an error message
-            System.out.println("Failed to get countries by population: " + e.getMessage());
+            log.debug("Failed to get countries by population: ", e);
         }
 
         // Return the complete list of countries sorted by population
@@ -188,7 +192,7 @@ public class CountryReport {
 
         } catch (SQLException e) {
             // Handle SQL exceptions and display error message
-            System.out.println("Failed to get top 10 countries by continent: " + e.getMessage());
+            log.debug("Failed to get top 10 countries by continent: ", e);
         }
 
         // Return the list of top 10 populated countries per continent
@@ -242,7 +246,7 @@ public class CountryReport {
 
         } catch (SQLException e) {
             // Handle any SQL errors that occur during the query execution
-            System.out.println("Failed to get top 50 countries by population: " + e.getMessage());
+            log.debug("Failed to get top 50 countries by population: ", e);
         }
 
         // Return the list of top 50 countries
@@ -291,7 +295,7 @@ public class CountryReport {
             stmt.close();
 
         } catch (SQLException e) {
-            System.out.println("Failed to get countries by region population: " + e.getMessage());
+            log.debug("Failed to get countries by region population: ", e);
         }
 
         return countries;
@@ -348,7 +352,7 @@ public class CountryReport {
             }
 
         } catch (SQLException e) {
-            System.out.println("Failed to get top 5 countries per region: " + e.getMessage());
+            log.debug("Failed to get top 5 countries per region: ", e);
         }
 
         return countries;

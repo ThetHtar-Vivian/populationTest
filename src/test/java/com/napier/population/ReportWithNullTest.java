@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -229,7 +230,7 @@ class ReportWithNullTest {
      */
     @Test
     void testGetTop50CapitalCitiesByPopulation_NullConnection() {
-        ArrayList<City> result = capitalCityReport.getTop50CapitalCitiesByPopulation();
+        List<City> result = capitalCityReport.getTop50CapitalCitiesByPopulation();
         assertNotNull(result, "Result list should not be null when DB connection is null");
         assertTrue(result.isEmpty(), "Result list should be empty when DB connection is null");
     }

@@ -1,5 +1,8 @@
 package com.napier.population;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +18,7 @@ public class CityReport {
 
     // Active database connection used to query capital city information
     private Connection con;
+    Logger log = LoggerFactory.getLogger(CityReport.class);
 
     /**
      * Constructor initializes the CityReport with an active DB connection.
@@ -65,7 +69,7 @@ public class CityReport {
                 cities.add(city);
             }
         } catch (SQLException e) {
-            System.out.println("Failed to get cities by population: " + e.getMessage());
+            log.debug("Failed to get cities by population: ", e);
         }
         return cities;
     }
@@ -119,7 +123,7 @@ public class CityReport {
 
         } catch (SQLException e) {
             // Handle any SQL errors that occur during the query execution
-            System.out.println("Failed to get cities by continent population: " + e.getMessage());
+            log.debug("Failed to get cities by continent population: ", e);
         }
 
         // Return the list of cities organized by continent and sorted by population
@@ -179,7 +183,7 @@ public class CityReport {
             }
         } catch (SQLException e) {
             // Print error message if query fails
-            System.out.println("Failed to get city report: " + e.getMessage());
+            log.debug("Failed to get city report: ", e);
         }
 
         // Return the list of top 50 cities
@@ -237,7 +241,7 @@ public class CityReport {
             }
         } catch (SQLException e) {
             // Print error message if query fails
-            System.out.println("Failed to get top 10 cities by continent: " + e.getMessage());
+            log.debug("Failed to get top 10 cities by continent: ", e);
         }
 
         return cities; // Return list of top cities
@@ -294,7 +298,7 @@ public class CityReport {
             }
 
         } catch (SQLException e) {
-            System.out.println("Failed to get top 5 cities by region: " + e.getMessage());
+            log.debug("Failed to get top 5 cities by region: ", e);
         }
 
         return cities;
@@ -351,7 +355,7 @@ public class CityReport {
             }
 
         } catch (SQLException e) {
-            System.out.println("Failed to get cities by region population: " + e.getMessage());
+            log.debug("Failed to get cities by region population: ", e);
         }
 
         return cities;
@@ -399,7 +403,7 @@ public class CityReport {
             }
 
         } catch (SQLException e) {
-            System.out.println("Failed to get cities by country population: " + e.getMessage());
+            log.debug("Failed to get cities by country population: ", e);
         }
 
         return cities;
@@ -450,8 +454,8 @@ public class CityReport {
             }
 
         } catch (SQLException e) {
-            // Handle any SQL errors that occur during the query execution
-            System.out.println("Failed to get cities by district population: " + e.getMessage());
+            // Handle any SQL errors that occur during the query execution]
+            log.debug("Failed to get cities by district population: ", e);
         }
 
         // Return the list of cities organized by continent and sorted by population
@@ -505,7 +509,7 @@ public class CityReport {
                 cities.add(city);
             }
         } catch (SQLException e) {
-            System.out.println("Failed to get city report: " + e.getMessage());
+            log.debug("Failed to get city report: ", e);
         }
 
         return cities;
@@ -561,7 +565,7 @@ public class CityReport {
 
         } catch (SQLException e) {
             // Print error message if query fails
-            System.out.println("Failed to get top city by district population: " + e.getMessage());
+            log.debug("Failed to get top city by district population: ", e);
         }
 
         // Return the list of top cities

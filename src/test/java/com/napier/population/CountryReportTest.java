@@ -30,7 +30,11 @@ class CountryReportTest {
     // ---------- Helper ----------
     private void prepareOneRowResultSet(String code, String name, String capitalName, String district,
                                         String region, String continent, int population) throws SQLException {
-        when(mockRs.next()).thenReturn(true).thenReturn(false);
+        if (!mockRs.next()) {
+            when(mockRs.next()).thenReturn(true).thenReturn(false);
+        } else {
+            when(mockRs.next()).thenReturn(false);
+        }
 
         lenient().when(mockRs.getString(anyString())).thenAnswer(invocation -> {
             String col = invocation.getArgument(0);
@@ -58,7 +62,11 @@ class CountryReportTest {
 
     private void wireExecuteQueryReturnsEmptyRs() throws SQLException {
         ResultSet emptyRs = mock(ResultSet.class);
-        when(emptyRs.next()).thenReturn(false);
+        if (!emptyRs.next()) {
+            when(emptyRs.next()).thenReturn(false);
+        } else {
+            when(emptyRs.next()).thenReturn(true);
+        }
         lenient().when(mockStmt.executeQuery(anyString())).thenReturn(emptyRs);
     }
 

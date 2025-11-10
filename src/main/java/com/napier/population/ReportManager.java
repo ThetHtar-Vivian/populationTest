@@ -1,7 +1,11 @@
 package com.napier.population;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ReportManager is responsible for coordinating between
@@ -14,6 +18,7 @@ import java.util.ArrayList;
 public class ReportManager {
     private final Connection con;
     private final Display display;
+    Logger log = LoggerFactory.getLogger(ReportManager.class);
 
     /**
      * Constructor initializes the ReportManager with
@@ -149,8 +154,8 @@ public class ReportManager {
             display.writeCapitalCityReportToFile(capitalCitiesByRegion, "No_19_Capital_Cities_by_Region_Population_Report.md");
 
             // No 20 Top 50 Capital Cities by Population Report
-            ArrayList<City> top50capitals = report.getTop50CapitalCitiesByPopulation();
-            display.writeCapitalCityReportToFile(top50capitals, "No_20_Top_50_Capital_Cities_by_Population_Report.md");
+            List<City> top50capitals = report.getTop50CapitalCitiesByPopulation();
+            display.writeCapitalCityReportToFile((ArrayList<City>) top50capitals, "No_20_Top_50_Capital_Cities_by_Population_Report.md");
 
             // No 21 Top 10 Capital Cities by Continent Population Report
             ArrayList<City> top10Capitals = report.getTop10CapitalCitiesByContinentPopulation();

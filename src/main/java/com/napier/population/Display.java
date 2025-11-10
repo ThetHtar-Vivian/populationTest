@@ -1,5 +1,8 @@
 package com.napier.population;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -11,6 +14,7 @@ import java.util.ArrayList;
  * Each method is responsible for printing a specific type of report.
  */
 public class Display {
+    Logger log = LoggerFactory.getLogger(Display.class);
     /**
      * Prints a country report in a formatted table.
      * Displays: code, name, capital, district, region, continent, and population.
@@ -53,7 +57,7 @@ public class Display {
             writer.write(sb.toString());
             writer.close();
         } catch (IOException e) {
-            System.out.println("Error writing country report: " + e.getMessage());
+            log.debug("Error while writing country report: ", e);
         }
         return index;
     }
@@ -101,7 +105,7 @@ public class Display {
             writer.write(sb.toString());
             writer.close();
         } catch (IOException e) {
-            System.out.println("Error writing city report: " + e.getMessage());
+            log.debug("Error while writing city report: ", e);
         }
         return index;
     }
@@ -148,7 +152,7 @@ public class Display {
             writer.write(sb.toString());
             writer.close();
         } catch (IOException e) {
-            System.out.println("Error writing capital city report: " + e.getMessage());
+            log.debug("Error while writing capital city report: ", e);
         }
         return index;
     }
@@ -192,7 +196,7 @@ public class Display {
             writer.write(sb.toString());
             writer.close();
         } catch (IOException e) {
-            System.out.println("Error writing population report: " + e.getMessage());
+            log.debug("Error while writing population report: ", e);
         }
         return index;
     }
@@ -233,7 +237,7 @@ public class Display {
             writer.write(sb.toString());
             writer.close();
         } catch (IOException e) {
-            System.out.println("Error population report: " + e.getMessage());
+            log.debug("Error population report: ", e);
         }
         return index;
     }
@@ -278,7 +282,7 @@ public class Display {
             writer.close();
         } catch (IOException e) {
             // Handle file writing errors gracefully
-            System.out.println("Error writing language report: " + e.getMessage());
+            log.debug("Error while writing language report: ", e);
         }
         return index;
     }

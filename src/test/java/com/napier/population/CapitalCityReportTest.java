@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -38,7 +39,11 @@ class CapitalCityReportTest {
      */
     private void prepareOneRowResultSet(String cityName, String countryName,
                                         String district, String region, String continent, int population) throws SQLException {
-        when(mockRs.next()).thenReturn(true).thenReturn(false);
+        if (!mockRs.next()) {
+            when(mockRs.next()).thenReturn(true).thenReturn(false);
+        } else {
+            when(mockRs.next()).thenReturn(false);
+        }
 
         lenient().when(mockRs.getString(anyString())).thenAnswer(invocation -> {
             String col = invocation.getArgument(0);
@@ -160,7 +165,7 @@ class CapitalCityReportTest {
         wireExecuteQueryReturnsMockRs("LIMIT 50");
 
         report = new CapitalCityReport(mockCon);
-        ArrayList<City> list = report.getTop50CapitalCitiesByPopulation();
+        List<City> list = report.getTop50CapitalCitiesByPopulation();
 
         assertNotNull(list);
         assertEquals(1, list.size());
@@ -172,7 +177,7 @@ class CapitalCityReportTest {
         wireExecuteQueryThrows("LIMIT 50");
 
         report = new CapitalCityReport(mockCon);
-        ArrayList<City> list = report.getTop50CapitalCitiesByPopulation();
+        List<City> list = report.getTop50CapitalCitiesByPopulation();
 
         assertNotNull(list);
         assertTrue(list.isEmpty());
