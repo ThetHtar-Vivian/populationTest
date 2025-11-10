@@ -236,7 +236,6 @@ public class CapitalCityReport {
                 );
                 capitals.add(city);
             }
-
         } catch (SQLException e) {
             log.debug("Failed to get capital cities by region: ", e);
         }
