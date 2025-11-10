@@ -10,9 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DbConnectionTest {
 
-    DbConnection db;
-    Connection con;
-
     @Test
     void testConnectSuccess() {
         DbConnection db = new DbConnection();

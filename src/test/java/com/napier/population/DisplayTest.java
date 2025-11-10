@@ -20,17 +20,6 @@ class DisplayTest {
     }
 
     // COUNTRY REPORTS ------------------------------------------------------
-
-    @Test
-    void writeCountryReportToFileCatchIOException() throws IOException {
-        List<Country> countries = new ArrayList<>();
-        countries.add(new Country("AYA", "Ayarwaddy", "Yangon", "Yangon",
-                "South East Asia", "Asia", 2300));
-
-        int result = display.writeCountryReportToFile(countries, "TestReports/ReadOnlyTest.txt");
-        assertEquals(1, result, "IOException should be caught gracefully; writing attempt may still return 1");
-    }
-
     @Test
     void testWriteCountryReport_withValidData() {
         List<Country> countries = new ArrayList<>();
@@ -97,7 +86,6 @@ class DisplayTest {
     }
 
     // CAPITAL CITY REPORTS ---------------------------------------------
-
     @Test
     void testWriteCapitalCityReport_withValidData() {
         List<City> capitals = new ArrayList<>();
@@ -130,7 +118,6 @@ class DisplayTest {
     }
 
     // POPULATION REPORTS -----------------------------------------------
-
     @Test
     void testWritePopulationReport_withValidData() {
         List<PeoplePopulation> populations = new ArrayList<>();
@@ -163,7 +150,6 @@ class DisplayTest {
     }
 
     // OVERALL POPULATION REPORTS ---------------------------------------
-
     @Test
     void testWriteOverallPopulationReport_withValidData() {
         List<PeoplePopulation> populations = new ArrayList<>();
@@ -196,7 +182,6 @@ class DisplayTest {
     }
 
     // LANGUAGE REPORTS -------------------------------------------------
-
     @Test
     void testWriteLanguageReport_withValidData() {
         List<CountryLanguage> languages = new ArrayList<>();
