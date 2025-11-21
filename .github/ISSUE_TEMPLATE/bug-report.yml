@@ -15,7 +15,7 @@ body:
     attributes:
       label: What happened?
       description: Describe the issue and what you expected to happen.
-      placeholder: Example: The app crashes when clicking the Login button.
+      placeholder: Example The app crashes when clicking the Login button.
     validations:
       required: true
 
