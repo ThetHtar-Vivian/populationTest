@@ -1,0 +1,66 @@
+name: Bug Report
+description: Report a bug to help us improve the project.
+title: "[Bug]: "
+labels: ["bug"]
+type: bug
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the details below.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the issue and what you expected to happen.
+      placeholder: Example: The app crashes when clicking the Login button.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce the problem?
+      placeholder: |
+        1. Go to...
+        2. Click...
+        3. Scroll...
+        4. See error...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: version
+    attributes:
+      label: App Version
+      options:
+        - 1.0.0
+        - 1.1.0
+        - 1.2.0
+      description: Select the version you're using.
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: OS, Browser, Device (e.g., Windows 11, Chrome 121, Pixel 7)
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs
+      description: Paste any error messages or logs. They will be formatted automatically.
+      render: shell
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional Context
+      placeholder: Anything else we should know?
